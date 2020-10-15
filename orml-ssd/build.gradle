@@ -9,9 +9,6 @@ sourceSets {
 }
 
 dependencies {
-    implementation("org.openrndr.extra:orx-tensorflow:$orxVersion")
-    implementation(project(":orml-utils"))
-    demoRuntimeOnly("org.openrndr.extra:orx-tensorflow-natives-$openrndrOS:$orxVersion")
 
     demoImplementation("org.openrndr:openrndr-core:$openrndrVersion")
     demoImplementation("org.openrndr:openrndr-extensions:$openrndrVersion")
@@ -21,4 +18,6 @@ dependencies {
     demoRuntimeOnly("org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion")
     demoRuntimeOnly("org.openrndr:openrndr-ffmpeg-natives-$openrndrOS:$openrndrVersion")
     demoImplementation(sourceSets.getByName("main").output)
+
+
 }

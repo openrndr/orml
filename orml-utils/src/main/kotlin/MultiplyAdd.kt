@@ -1,3 +1,5 @@
+package org.openrndr.orml.utils
+
 import org.openrndr.draw.Filter
 import org.openrndr.draw.filterShaderFromCode
 import org.openrndr.draw.glsl

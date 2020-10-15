@@ -3,9 +3,11 @@ import org.openrndr.draw.*
 import org.openrndr.extra.tensorflow.arrays.get
 import org.openrndr.extra.tensorflow.copyTo
 import org.openrndr.extra.tensorflow.toFloatArray3D
+import org.openrndr.math.Matrix44
 import org.openrndr.math.Vector2
 import org.openrndr.math.Vector3
 import org.openrndr.math.Vector4
+import org.openrndr.math.transforms.transform
 import org.openrndr.resourceUrl
 import org.openrndr.shape.IntRectangle
 import org.openrndr.shape.Rectangle
@@ -23,54 +25,40 @@ fun normalizeRadians(angle: Double): Double {
 }
 
 data class Region(val score: Double, val rectangle: Rectangle, val keys: List<Vector2>) {
-    val rotation = 0.0 // by lazy { rotation() }
-
-    private fun rotation(): Double {
-        val region = this
-        val x0 = region.keys[0].x;
-        val y0 = region.keys[0].y;
-        val x1 = (region.rectangle.center.x) * 0.5;
-        val y1 = (region.rectangle.center.y) * 0.5;
-
-        val targetAngle = Math.PI * 0.5;
-        val rotation = targetAngle - atan2(-(y1 - y0), x1 - x0);
-        return normalizeRadians(rotation);
-    }
-
     var roi_center = Vector2.ZERO
     var roi_size = Vector2.ZERO
-    var roi_coord = Array<Vector2>(0){ Vector2.ZERO}
+    var roi_coord = Array<Vector2>(0) { Vector2.ZERO }
+    var transform = Matrix44.IDENTITY
 }
 
-val kMidHipCenter      = 0;
-val kFullBodySizeRot   = 1;
+val kMidHipCenter = 0;
+val kFullBodySizeRot = 1;
 val kMidShoulderCenter = 2;
-val kUpperBodySizeRot  = 3;
-val kPoseDetectKeyNum  = 2;
+val kUpperBodySizeRot = 3;
+val kPoseDetectKeyNum = 2;
 
 fun computeRoi(region: Region) {
-    val input_img_w = 128
-    val input_img_h = 128
-    val center = Vector2(region.keys[kMidHipCenter].x,  region.keys[kMidHipCenter].y)
-    val scale = Vector2(region.keys[kFullBodySizeRot].x,  region.keys[kFullBodySizeRot].y)
-
-    val d = (scale-center) * 1.5
+    val center = Vector2(region.keys[kMidHipCenter].x, region.keys[kMidHipCenter].y)
+    val scale = Vector2(region.keys[kFullBodySizeRot].x, region.keys[kFullBodySizeRot].y)
+    val d = Vector2(0.0, (scale - center).y) * 2.0
     val dp = d.perpendicular()
+    val l = d.length
+    val c1 = (region.rectangle.center)
+    val c2 = Vector2(c1.x, 1.0 - c1.y)
 
     region.roi_coord = Array(4) { Vector2.ZERO }
-    region.roi_coord[0] = center+d+dp/2.0
-    region.roi_coord[1] = center+d-dp/2.0
-    region.roi_coord[2] = center-d-dp/2.0
-    region.roi_coord[3] = center-d+dp/2.0
-
-}
-
-fun rot_vec(vec:Vector2, rotation:Double) : Vector2
-{
-    val sx = vec.x;
-    val sy = vec.y;
-    return Vector2(sx * Math.cos(rotation) - sy * Math.sin(rotation),
-    sx * Math.sin(rotation) + sy * Math.cos(rotation))
+    region.roi_coord[0] = c2 + d + dp
+    region.roi_coord[1] = c2 + d - dp
+    region.roi_coord[2] = c2 - d - dp
+    region.roi_coord[3] = c2 - d + dp
+    region.transform =
+            transform {
+                translate((c2 - Vector2(0.5)) * Vector2(1.0, -1.0))
+                translate(Vector2(0.5))
+                val s = l * 2.0
+                scale(s, s, s)
+                translate(Vector2(-0.5))
+            }
 }
 
 private fun intersectionOverUnion(region0: Rectangle, region1: Rectangle): Double {
@@ -127,56 +115,6 @@ private fun nonMaxSuppression(input: List<Region>, threshold: Double = 0.5): Lis
     return result
 }
 
-class RoiExtractor {
-
-    val vbo = vertexBuffer(vertexFormat {
-        position(3)
-        textureCoordinate(2)
-    }, 6)
-
-    fun extractRoi(drawer:Drawer, image:ColorBuffer, region:Region ) {
-        vbo.put {
-
-
-
-            write(Vector3(0.0, 0.0, 0.0))
-            write(region.roi_coord[0])
-
-            write(Vector3(256.0, 0.0, 0.0))
-            write(region.roi_coord[1])
-
-            write(Vector3(256.0, 256.0, 0.0))
-            write(region.roi_coord[2])
-
-            write(Vector3(256.0, 256.0, 0.0))
-            write(region.roi_coord[2])
-
-            write(Vector3(0.0, 256.0, 0.0))
-            write(region.roi_coord[3])
-
-            write(Vector3(0.0, 0.0, 0.0))
-            write(region.roi_coord[0])
-        }
-
-        drawer.isolated {
-
-            drawer.defaults()
-            drawer.ortho(RenderTarget.active)
-            drawer.shadeStyle = shadeStyle {
-                fragmentTransform = """
-                    vec2 ts = textureSize(p_image, 0);
-                    float ar = ts.y / ts.x;
-                    x_fill = texture(p_image, va_texCoord0 * vec2(1.0, ar));
-                """.trimIndent()
-                parameter("image", image)
-            }
-            drawer.vertexBuffer(vbo, DrawPrimitive.TRIANGLES)
-
-        }
-    }
-
-}
-
 
 class BlasePoseDetector(val graph: Graph) {
     val kMidHipCenter = 0;
@@ -189,6 +127,8 @@ class BlasePoseDetector(val graph: Graph) {
     val inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, 128, 128, 3))
     val inputImage = colorBuffer(128, 128, format = ColorFormat.RGB, type = ColorType.FLOAT32)
     val inputImageFlipped = inputImage.createEquivalent()
+
+    val multiplyAdd = MultiplyAdd()
 
     var session: Session? = null
     fun start() {
@@ -204,15 +144,20 @@ class BlasePoseDetector(val graph: Graph) {
         val imageLongest = max(image.width, image.height)
         val sourceRect = IntRectangle(0, 0, image.width, image.height)
         val targetRect = IntRectangle(0, 0, ((image.width / imageLongest.toDouble()) * 128.0).toInt(), ((image.height / imageLongest.toDouble()) * 128.0).toInt())
+
         image.copyTo(inputImage, sourceRectangle = sourceRect, targetRectangle = targetRect, filter = MagnifyingFilter.LINEAR)
-        inputImage.copyTo(inputImageFlipped, targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height ))
+        inputImage.copyTo(inputImageFlipped, targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height))
+
+        multiplyAdd.offset = Vector4.ONE * -1.0
+        multiplyAdd.scale = Vector4.ONE * 2.0
+        multiplyAdd.apply(inputImage, inputImage)
+        multiplyAdd.apply(inputImageFlipped, inputImageFlipped)
 
         inputImageFlipped.copyTo(inputTensor)
 
         if (session == null) {
             start()
         }
-
         return session?.let {
             val runner = it.runner()
             val tensors = runner.feed("input", inputTensor)
@@ -223,33 +168,33 @@ class BlasePoseDetector(val graph: Graph) {
             val logits0 = tensors[0].expect(TFloat32.DTYPE)
             val logits1 = tensors[1].expect(TFloat32.DTYPE)
 
-            val scores_ptr = logits0.toFloatArray3D()
-            val bbox_ptr = logits1.toFloatArray3D()
+            val scores = logits0.toFloatArray3D()
+            val boundingBoxes = logits1.toFloatArray3D()
 
-            val score_thresh = 0.3
+            val scoreThreshold = 0.3
 
             val regions = (anchors.indices).mapNotNull { i ->
                 val anchor = anchors[i]
-                val score0 = scores_ptr[0, i, 0].toDouble()
+                val score0 = scores[0, i, 0].toDouble()
                 val score = 1.0 / (1.0 + exp(-score0))
 
-                if (score > score_thresh) {
-                    val sx = bbox_ptr[0, i, 0].toDouble()
-                    val sy = bbox_ptr[0, i, 1].toDouble()
+                if (score > scoreThreshold) {
+                    val sx = boundingBoxes[0, i, 0].toDouble()
+                    val sy = boundingBoxes[0, i, 1].toDouble()
 
-                    val w = (bbox_ptr[0, i, 2].toDouble() / 128.0)
-                    val h = (bbox_ptr[0, i, 3].toDouble() / 128.0)
+                    val w = (boundingBoxes[0, i, 2].toDouble() / 128.0)
+                    val h = (boundingBoxes[0, i, 3].toDouble() / 128.0)
 
                     val cx = ((sx + anchor.xCenter * 128.0) / 128.0)
                     val cy = ((sy + anchor.yCenter * 128.0) / 128.0)
 
-                    val topleft = Vector2(cx - w * 0.5, 1.0 - (cy - h * 0.5))
-                    val rectangle = Rectangle(topleft, w, h)
+                    val topLeft = Vector2(cx - w * 0.5, (cy - h * 0.5))
+                    val rectangle = Rectangle(topLeft, w, h)
 
                     val keypoints = (0 until kPoseDetectKeyNum).map { j ->
-                        val lx = (bbox_ptr[0, i, 4 + (2 * j) + 0].toDouble() + anchor.xCenter * 128.0) / 128.0
-                        val ly = (bbox_ptr[0, i, 4 + (2 * j) + 1].toDouble() + anchor.yCenter * 128.0) / 128.0
-                        Vector2(lx, 1.0-ly)
+                        val lx = (boundingBoxes[0, i, 4 + (2 * j) + 0].toDouble() + anchor.xCenter * 128.0) / 128.0
+                        val ly = (boundingBoxes[0, i, 4 + (2 * j) + 1].toDouble() + anchor.yCenter * 128.0) / 128.0
+                        Vector2(lx, ly)
                     }
                     Region(score, rectangle, keypoints)
                 } else {
@@ -258,8 +203,7 @@ class BlasePoseDetector(val graph: Graph) {
             }
             logits0.close()
             logits1.close()
-            regions.sortedBy { it.score }.take(1)
-
+            regions.sortedByDescending { it.score }.take(1)
         } ?: error("no session")
     }
 
