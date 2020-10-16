@@ -19,7 +19,7 @@ jobs:
       - name: Zip and publish to Bintray
         run: |
           cd ~/.m2/repository
-          zip release.zip org/openrndr/extra/*/${{ steps.get_version.outputs.VERSION }}/*
+          zip release.zip org/openrndr/orml/*/${{ steps.get_version.outputs.VERSION }}/*
           curl -u ${{ secrets.BINTRAY_USER }}:${{ secrets.BINTRAY_KEY }} -X PUT https://api.bintray.com/content/openrndr/openrndr/ \
             -H "X-Bintray-Package:orx" \
             -H "X-Bintray-Version:${{ steps.get_version.outputs.VERSION }}" \
