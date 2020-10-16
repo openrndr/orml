@@ -5,9 +5,9 @@ import org.openrndr.extra.tensorflow.copyTo
 import org.openrndr.extra.tensorflow.toFloatArray3D
 import org.openrndr.math.Matrix44
 import org.openrndr.math.Vector2
-import org.openrndr.math.Vector3
 import org.openrndr.math.Vector4
 import org.openrndr.math.transforms.transform
+import org.openrndr.orml.utils.MultiplyAdd
 import org.openrndr.resourceUrl
 import org.openrndr.shape.IntRectangle
 import org.openrndr.shape.Rectangle
@@ -116,7 +116,7 @@ private fun nonMaxSuppression(input: List<Region>, threshold: Double = 0.5): Lis
 }
 
 
-class BlasePoseDetector(val graph: Graph) {
+class BlazePoseDetector(val graph: Graph) {
     val kMidHipCenter = 0;
     val kFullBodySizeRot = 1;
     val kMidShoulderCenter = 2;
@@ -208,11 +208,11 @@ class BlasePoseDetector(val graph: Graph) {
     }
 
     companion object {
-        fun load(): BlasePoseDetector {
+        fun load(): BlazePoseDetector {
             val bytes = URL(resourceUrl("/tfmodels/full_pose_detection_float32.pb")).readBytes()
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
-            return BlasePoseDetector(g)
+            return BlazePoseDetector(g)
         }
     }
 }

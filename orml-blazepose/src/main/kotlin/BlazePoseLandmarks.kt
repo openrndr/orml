@@ -19,7 +19,7 @@ import kotlin.math.max
 
 class Landmark(val x: Double, val y: Double, val z: Double, val w1: Double, val imagePosition: Vector2)
 
-class BlasePoseLandmarks(val graph: Graph, val landmarkCount: Int) {
+class BlazePoseLandmarks(val graph: Graph, val landmarkCount: Int) {
     private val inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, 256, 256, 3))
     private val inputImage = colorBuffer(256, 256, format = ColorFormat.RGB, type = ColorType.FLOAT32)
     private val inputImageFlipped = inputImage.createEquivalent()
@@ -93,24 +93,24 @@ class BlasePoseLandmarks(val graph: Graph, val landmarkCount: Int) {
     }
 
     companion object {
-        fun fullBody(): BlasePoseLandmarks {
+        fun fullBody(): BlazePoseLandmarks {
             val bytes = URL(resourceUrl("/tfmodels/full_pose_landmark_39p_float32.pb")).readBytes()
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             g.operations().forEach {
                 println(it.name())
             }
-            return BlasePoseLandmarks(g, 39)
+            return BlazePoseLandmarks(g, 39)
         }
 
-        fun upperBody(): BlasePoseLandmarks {
+        fun upperBody(): BlazePoseLandmarks {
             val bytes = URL(resourceUrl("/tfmodels/upperbody_landmark_float32.pb")).readBytes()
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             g.operations().forEach {
                 println(it.name())
             }
-            return BlasePoseLandmarks(g, 31)
+            return BlazePoseLandmarks(g, 31)
         }
     }
 }

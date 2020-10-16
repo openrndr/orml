@@ -2,14 +2,8 @@ import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.colorBuffer
 import org.openrndr.draw.isolated
-import org.openrndr.draw.isolatedWithTarget
-import org.openrndr.draw.renderTarget
-import org.openrndr.ffmpeg.PlayMode
 import org.openrndr.ffmpeg.VideoPlayerConfiguration
-import org.openrndr.ffmpeg.loadVideo
 import org.openrndr.ffmpeg.loadVideoDevice
-import org.openrndr.math.Vector2
-import org.openrndr.math.Vector4
 import org.openrndr.shape.IntRectangle
 import kotlin.math.max
 
@@ -20,14 +14,10 @@ fun main() = application {
     }
 
     program {
-        val vc = VideoPlayerConfiguration().apply {
-            allowFrameSkipping = false
-        }
-        //val video = loadVideo("orml-blasepose/debug-data/output.mkv", PlayMode.VIDEO, configuration = vc)
         val video = loadVideoDevice()
         video.play()
-        val detector = BlasePoseDetector.load()
-        val landmarks = BlasePoseLandmarks.upperBody()
+        val detector = BlazePoseDetector.load()
+        val landmarks = BlazePoseLandmarks.upperBody()
         val longestVideoAxis = max(video.width, video.height)
         val videoImage = colorBuffer(longestVideoAxis, longestVideoAxis)
 

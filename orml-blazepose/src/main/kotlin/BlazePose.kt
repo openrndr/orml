@@ -1,4 +1,4 @@
-enum class BlasePoseUpperBodyJoint {
+enum class BlazePoseUpperBodyJoint {
     NOSE,               // 0
     RIGHT_EYE_INNER,    // 1
     RIGHT_EYE,          // 2
@@ -26,4 +26,4 @@ enum class BlasePoseUpperBodyJoint {
     LEFT_HIP,           // 24
 }
 
-operator fun <T> List<T>.get(joint : BlasePoseUpperBodyJoint): T = this[joint.ordinal]
+operator fun <T> List<T>.get(joint : BlazePoseUpperBodyJoint): T = this[joint.ordinal]
