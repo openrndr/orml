@@ -1,0 +1,9 @@
+.gradle/
+gradle.properties
+.idea/
+*.iml
+target/
+build/
+out/
+*.log
+generated-src/
