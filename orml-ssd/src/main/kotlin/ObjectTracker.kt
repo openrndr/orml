@@ -110,6 +110,8 @@ class ObjectTracker {
     }
 
     var threshold = 0.4
+    var score = 0.0
+        private set
 
     private val history = mutableListOf<Boolean>()
     var hasObject = false
@@ -137,6 +139,8 @@ class ObjectTracker {
             weight += p.weight
         }
         averageRectangle /= weight
+
+        score = averageWeight
 
         val similarity = intersectionOverUnion(objectRectangle, averageRectangle) / 1.0
 
