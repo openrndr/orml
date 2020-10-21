@@ -119,7 +119,6 @@ class FaceMesh(val graph: Graph) {
                     .run()
 
             val identityTensor = tensors[0].expect(TFloat32.DTYPE)
-            identityTensor.summary()
 
             val landmarkFloats = identityTensor.toFloatArray2D()
             val landmarks = (0 until 468).map { landmarkIndex ->
