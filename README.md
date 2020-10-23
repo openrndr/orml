@@ -4,11 +4,27 @@
 
 This is work in progress, but the idea is to create a collection of easy to use machine learning based models. The ORML library includes both models and interface code to make the use of those models simple.
 
-ORML works on Linux, macOS, and Windows. We currently only support Tensorflow's CPU back-ends but GPU support for NVIDIA adapters on Linux and Windows will be added shortly.
+ORML works on Linux, macOS, and Windows.
+
+## Using ORML with hardware acceleration
+
+### Windows 10
+
+ * Install CUDA 10.1 Update 2
+ * Download cudNN 7.6.5.32, extract and place `cudnn64_7.dll` in `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin` 
+ 
+First run with GPU may take a long while to initialize the GPU, it took 10 minutes on my laptop.
+ 
+ ### Linux
+ 
+ * Install CUDA 10.1 Update 2 and cudNN 7.6.5.32
 
 ## How to use ORML?
 
 The ORML repository comes with demos included, the easiest way to run the demos is to clone the repository, import the Gradle project into IntelliJ IDEA. The demos are in the directory `src/demo/kotlin` of the ORML modules.
+
+To run the demos with a GPU based tensorflow back-end make sure you have installed CUDA properly and that 
+`orxTensorflowBackend` is set to `orx-tensorflow-gpu` in the root `build.gradle`.
 
 Instructions for using ORML in your own projects will follow.
 

@@ -23,6 +23,9 @@ project.ext {
     orxVersion = orxUseSnapshot? "0.4.0-SNAPSHOT" : "0.3.54-rc.2"
     kotlinVersion = "1.4.0"
     spekVersion = "2.0.12"
+
+    // -- this affects which backend to be used for running the demos only
+    orxTensorflowBackend = "orx-tensorflow-mkl"
 }
 
 switch (org.gradle.internal.os.OperatingSystem.current()) {
@@ -34,6 +37,7 @@ switch (org.gradle.internal.os.OperatingSystem.current()) {
         break
     case org.gradle.internal.os.OperatingSystem.MAC_OS:
         project.ext.openrndrOS = "macos"
+        project.ext.orxTensorflowBackend = "orx-tensorflow-mkl"
         break
 }
 
