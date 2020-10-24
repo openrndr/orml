@@ -20,12 +20,12 @@ apply plugin: 'org.jetbrains.dokka'
 
 project.ext {
     openrndrVersion = openrndrUseSnapshot? "0.4.0-SNAPSHOT" : "0.3.44"
-    orxVersion = orxUseSnapshot? "0.4.0-SNAPSHOT" : "0.3.54-rc.2"
+    orxVersion = orxUseSnapshot? "0.4.0-SNAPSHOT" : "0.3.54-rc.3"
     kotlinVersion = "1.4.0"
     spekVersion = "2.0.12"
 
     // -- this affects which backend to be used for running the demos only
-    orxTensorflowBackend = "orx-tensorflow-mkl"
+    orxTensorflowBackend = "orx-tensorflow-gpu"
 }
 
 switch (org.gradle.internal.os.OperatingSystem.current()) {
@@ -69,9 +69,6 @@ allprojects {
         repositories {
             maven {
                 url = "https://oss.sonatype.org/content/repositories/snapshots/"
-//        mavenContent {
-//            snapshotsOnly()
-//        }
             }
         }
 
@@ -103,7 +100,6 @@ allprojects {
         runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     }
 
-
     java {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -130,8 +126,6 @@ allprojects {
 task buildMainReadme {
     doFirst {
         def subProjects = project.subprojects
-        //.findAll { !it.name.contains("kinect-common") && !it.name.contains
-        // ("kinect-v1-") }
 
         // Load README.md and find [begin, end] section to replace
         def mainReadme = file("README.md")

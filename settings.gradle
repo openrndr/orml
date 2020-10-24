@@ -4,4 +4,5 @@ include 'orml-blazepose',
         'orml-dbface',
         'orml-facemesh',
         'orml-ssd',
+        'orml-style-transfer',
         'orml-utils'
