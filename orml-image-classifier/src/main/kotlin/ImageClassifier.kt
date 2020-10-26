@@ -1,3 +1,5 @@
+package org.openrndr.orml.imageclassifier
+
 import org.openrndr.draw.ColorBuffer
 import org.openrndr.draw.ColorFormat
 import org.openrndr.draw.ColorType
