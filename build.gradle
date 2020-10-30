@@ -25,7 +25,7 @@ project.ext {
     spekVersion = "2.0.12"
 
     // -- this affects which backend to be used for running the demos only
-    orxTensorflowBackend = "orx-tensorflow-gpu"
+    orxTensorflowBackend = "orx-tensorflow"
 }
 
 switch (org.gradle.internal.os.OperatingSystem.current()) {

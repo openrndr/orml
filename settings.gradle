@@ -1,9 +1,12 @@
 rootProject.name = 'orml'
 
-include 'orml-blazepose',
+include 'orml-biggan',
+        'orml-blazepose',
         'orml-dbface',
         'orml-facemesh',
         'orml-image-classifier',
         'orml-ssd',
         'orml-style-transfer',
+        'orml-u2net',
         'orml-utils'
+
