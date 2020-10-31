@@ -19,13 +19,14 @@ def orxUseSnapshot = false
 apply plugin: 'org.jetbrains.dokka'
 
 project.ext {
-    openrndrVersion = openrndrUseSnapshot? "0.4.0-SNAPSHOT" : "0.3.44"
-    orxVersion = orxUseSnapshot? "0.4.0-SNAPSHOT" : "0.3.54-rc.3"
+    openrndrVersion = openrndrUseSnapshot ? "0.4.0-SNAPSHOT" : "0.3.44"
+    orxVersion = orxUseSnapshot ? "0.4.0-SNAPSHOT" : "0.3.54-rc.3"
     kotlinVersion = "1.4.0"
     spekVersion = "2.0.12"
 
     // -- this affects which backend to be used for running the demos only
-    orxTensorflowBackend = "orx-tensorflow"
+    // choices are "orx-tensorflow-gpu", "orx-tensorflow-mkl", "orx-tensorflow"
+    orxTensorflowBackend = "orx-tensorflow-mkl"
 }
 
 switch (org.gradle.internal.os.OperatingSystem.current()) {
@@ -146,12 +147,12 @@ task buildMainReadme {
             newReadme.add(line)
         }
         newReadme.add("| name" +
-          "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-          "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-          "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-          "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-          "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-          "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + " | description |")
+                "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + " | description |")
         newReadme.add("| --- | --- |")
 
         // Search for the description at the top of the readme.

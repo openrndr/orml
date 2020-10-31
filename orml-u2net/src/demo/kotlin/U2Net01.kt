@@ -1,4 +1,5 @@
 import org.openrndr.application
+import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.colorBuffer
 import org.openrndr.draw.grayscale
 import org.openrndr.draw.loadImage
@@ -13,13 +14,13 @@ fun main() {
         }
         program {
             val u2= U2Net.load()
-            val image = loadImage("demo-data/images/image-002.jpg")
-            val result = u2.extract(image)
+            val image = loadImage("demo-data/images/image-001.png")
+            val result = u2.removeBackground(image)
 
             extend {
+                drawer.clear(ColorRGBa.PINK)
                 drawer.image(image)
-                drawer.drawStyle.colorMatrix = grayscale(1.0, 0.0, 0.0)
-                drawer.image(result, 640.0, 480.0, 640.0, -480.0)
+                drawer.image(result, 640.0, 0.0)
             }
         }
     }
