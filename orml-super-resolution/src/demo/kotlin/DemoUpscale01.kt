@@ -9,7 +9,7 @@ fun main() = application {
     program {
         val upscaler = ImageUpscaler.load()
         val image = loadImage("demo-data/images/image-004.jpg")
-        val upscale = upscaler.upscale(image)
+        val upscale = upscaler.upscale(image, octaves = 1)
         extend {
             drawer.image(upscale)
             drawer.image(image, 1280.0, 0.0, 1280.0, 960.0)

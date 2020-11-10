@@ -89,7 +89,9 @@ class ImageUpscaler(val graph: Graph) {
         return if (octaves == 1) {
             outputImage
         } else {
-            upscale(outputImage, octaves = octaves - 1, prescaleFilter = prescaleFilter)
+            val finalResult = upscale(outputImage, octaves = octaves - 1, prescaleFilter = prescaleFilter)
+            outputImage.destroy()
+            finalResult
         }
     }
 
