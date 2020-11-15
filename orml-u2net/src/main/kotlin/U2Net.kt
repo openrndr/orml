@@ -1,11 +1,7 @@
 package org.openrndr.orml.u2net
 
-import org.openrndr.draw.ColorBuffer
-import org.openrndr.draw.ColorFormat
-import org.openrndr.draw.ColorType
-import org.openrndr.draw.colorBuffer
+import org.openrndr.draw.*
 import org.openrndr.extra.tensorflow.copyTo
-import org.openrndr.extra.tensorflow.summary
 import org.openrndr.math.Vector4
 import org.openrndr.orml.utils.MaskToAlpha
 import org.openrndr.orml.utils.MultiplyAdd
@@ -63,7 +59,7 @@ class U2Net(private val graph: Graph, val modelWidth: Int, val modelHeight: Int)
     fun removeForeground(input: ColorBuffer, output: ColorBuffer? = null): ColorBuffer {
         val result = output ?: input.createEquivalent(format = ColorFormat.RGBa)
         infer(input)
-        outputImage.copyTo(result, targetRectangle = IntRectangle(0, result.height, result.width, -result.height))
+        outputImage.copyTo(result, targetRectangle = IntRectangle(0, result.height, result.width, -result.height), filter = MagnifyingFilter.LINEAR)
         maskToAlpha.invert = true
         maskToAlpha.apply(arrayOf(input, result), result)
         return result
@@ -73,7 +69,7 @@ class U2Net(private val graph: Graph, val modelWidth: Int, val modelHeight: Int)
         if (session == null) {
             start()
         }
-        image.copyTo(inputImage, targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height))
+        image.copyTo(inputImage, targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height), filter = MagnifyingFilter.LINEAR)
         multiplyAdd.scale = Vector4.ONE * 2.0
         multiplyAdd.offset = Vector4.ONE * -1.0
         multiplyAdd.apply(inputImage, inputImage)
