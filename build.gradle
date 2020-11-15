@@ -19,8 +19,8 @@ def orxUseSnapshot = false
 apply plugin: 'org.jetbrains.dokka'
 
 project.ext {
-    openrndrVersion = openrndrUseSnapshot ? "0.4.0-SNAPSHOT" : "0.3.44"
-    orxVersion = orxUseSnapshot ? "0.4.0-SNAPSHOT" : "0.3.54-rc.3"
+    openrndrVersion = openrndrUseSnapshot ? "0.4.0-SNAPSHOT" : "0.3.45-rc.3"
+    orxVersion = orxUseSnapshot ? "0.4.0-SNAPSHOT" : "0.3.55-rc.3"
     kotlinVersion = "1.4.0"
     spekVersion = "2.0.12"
 
