@@ -9,7 +9,8 @@ sourceSets {
 }
 
 dependencies {
-    implementation "org.apache.commons:commons-compress:1.20"
+    implementation(project(":orml-ssd"))
+    implementation(project(":orml-utils"))
     implementation("org.openrndr.extra:orx-tensorflow:$orxVersion")
 
     demoRuntimeOnly("org.openrndr.extra:$orxTensorflowBackend-natives-$openrndrOS:$orxVersion")
@@ -17,9 +18,14 @@ dependencies {
     demoImplementation("org.openrndr:openrndr-core:$openrndrVersion")
     demoImplementation("org.openrndr:openrndr-extensions:$openrndrVersion")
     demoImplementation("org.openrndr:openrndr-ffmpeg:$openrndrVersion")
+    demoImplementation("org.openrndr.extra:orx-mesh-generators:$orxVersion")
 
     demoRuntimeOnly("org.openrndr:openrndr-gl3:$openrndrVersion")
     demoRuntimeOnly("org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion")
     demoRuntimeOnly("org.openrndr:openrndr-ffmpeg-natives-$openrndrOS:$openrndrVersion")
     demoImplementation(sourceSets.getByName("main").output)
+
+    implementation("org.openrndr.extra:orx-obj-loader:$orxVersion")
+    implementation("org.ejml:ejml-all:0.39")
+
 }

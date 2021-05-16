@@ -17,8 +17,8 @@ import java.net.URL
 
 
 class StyleTransformer(val graph: Graph, val outputTensorName : String) {
-    private var inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, 480, 640, 3))
-    private var inputStyleTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, 1, 1, 100))
+    private var inputTensor = TFloat32.tensorOf(Shape.of(1, 480, 640, 3))
+    private var inputStyleTensor = TFloat32.tensorOf(Shape.of(1, 1, 1, 100))
     private var inputImage = colorBuffer(640, 480, format = ColorFormat.RGB, type = ColorType.FLOAT32)
     private var outputImage = colorBuffer(640, 480, format = ColorFormat.RGB, type = ColorType.FLOAT32)
 
@@ -38,12 +38,12 @@ class StyleTransformer(val graph: Graph, val outputTensorName : String) {
             outputImage.destroy()
             outputImage = image.createEquivalent(format = ColorFormat.RGB, type = ColorType.FLOAT32)
             inputTensor.close()
-            inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, image.height.toLong(), image.width.toLong(), 3))
+            inputTensor = TFloat32.tensorOf(Shape.of(1, image.height.toLong(), image.width.toLong(), 3))
         }
         image.copyTo(inputImage)
 
         val db = DataBuffers.of(style, false, false)
-        inputStyleTensor.data().write(db)
+        inputStyleTensor.write(db)
 
         inputImage.copyTo(inputTensor)
         if (session == null) {
@@ -57,7 +57,7 @@ class StyleTransformer(val graph: Graph, val outputTensorName : String) {
                     .fetch(outputTensorName)
                     .run()
 
-            val transformedTensor = tensors[0].expect(TFloat32.DTYPE)
+            val transformedTensor = tensors[0] as TFloat32
             transformedTensor.copyTo(outputImage)
             transformedTensor.close()
 

@@ -30,7 +30,7 @@ import java.net.URL
 
 class BlazeFace(val graph: Graph) {
 
-    val inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, 128, 128, 3))
+    val inputTensor = TFloat32.tensorOf(Shape.of(1, 128, 128, 3))
     val inputImage = colorBuffer(128, 128, format = ColorFormat.RGB, type = ColorType.FLOAT32)
     val inputImageFlipped = inputImage.createEquivalent()
     val multiplyAdd = MultiplyAdd()
@@ -62,7 +62,7 @@ class BlazeFace(val graph: Graph) {
 
             val identityTensor = tensors[0]
 
-            val rectangleFloats = identityTensor.expect(TFloat32.DTYPE).toFloatArray3D()
+            val rectangleFloats = (identityTensor as TFloat32).toFloatArray3D()
 
             val landmarkCount = 6
 

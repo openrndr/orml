@@ -79,7 +79,7 @@ fun List<FaceLandmark>.contourOf(indices: IntArray, closed:Boolean = true): Shap
 }
 
 class FaceMesh(val graph: Graph) {
-    val inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, 192, 192, 3))
+    val inputTensor = TFloat32.tensorOf(Shape.of(1, 192, 192, 3))
     val inputImage = colorBuffer(192, 192, format = ColorFormat.RGB, type = ColorType.FLOAT32)
     val referencePoints = loadReferenceMesh()
 
@@ -118,7 +118,7 @@ class FaceMesh(val graph: Graph) {
                     .fetch("Identity")
                     .run()
 
-            val identityTensor = tensors[0].expect(TFloat32.DTYPE)
+            val identityTensor = tensors[0] as TFloat32
 
             val landmarkFloats = identityTensor.toFloatArray2D()
             val landmarks = (0 until 468).map { landmarkIndex ->

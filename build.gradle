@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.17"
@@ -10,7 +10,7 @@ buildscript {
     }
 }
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.4.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.0'
 }
 
 def openrndrUseSnapshot = false
@@ -19,14 +19,14 @@ def orxUseSnapshot = false
 apply plugin: 'org.jetbrains.dokka'
 
 project.ext {
-    openrndrVersion = openrndrUseSnapshot ? "0.4.0-SNAPSHOT" : "0.3.45-rc.3"
-    orxVersion = orxUseSnapshot ? "0.4.0-SNAPSHOT" : "0.3.55-rc.3"
-    kotlinVersion = "1.4.0"
-    spekVersion = "2.0.12"
+    openrndrVersion = openrndrUseSnapshot ? "0.4.0-SNAPSHOT" : "0.3.58"
+    orxVersion = orxUseSnapshot ? "0.4.0-SNAPSHOT" : "0.3.58"
+    kotlinVersion = "1.5.0"
+    spekVersion = "2.0.15"
 
     // -- this affects which backend to be used for running the demos only
     // choices are "orx-tensorflow-gpu", "orx-tensorflow-mkl", "orx-tensorflow"
-    orxTensorflowBackend = "orx-tensorflow-mkl"
+    orxTensorflowBackend = "orx-tensorflow-gpu"
 }
 
 switch (org.gradle.internal.os.OperatingSystem.current()) {
@@ -67,23 +67,13 @@ allprojects {
 
 
     repositories {
-        repositories {
-            maven {
-                url = "https://oss.sonatype.org/content/repositories/snapshots/"
-            }
-        }
+        mavenCentral()
 
         if (openrndrUseSnapshot || orxUseSnapshot) {
             mavenLocal()
         }
 
-        jcenter()
-        maven {
-            url = "https://dl.bintray.com/openrndr/openrndr"
-        }
-        maven {
-            url "https://dl.bintray.com/spekframework/spek"
-        }
+
     }
 
     dependencies {
@@ -92,9 +82,10 @@ allprojects {
         implementation "org.openrndr:openrndr-core:$openrndrVersion"
         implementation "org.openrndr:openrndr-filter:$openrndrVersion"
         implementation "org.openrndr:openrndr-shape:$openrndrVersion"
-        implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.3.9'
+        implementation "org.tensorflow:tensorflow-core-api:0.3.1"
+        implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.5.0-RC'
         testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spekVersion"
-        testImplementation "org.amshove.kluent:kluent:1.61"
+        testImplementation "org.amshove.kluent:kluent:1.65"
         testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlinVersion"
         testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:$spekVersion"
         testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"

@@ -20,7 +20,7 @@ import kotlin.math.max
 class Landmark(val x: Double, val y: Double, val z: Double, val w1: Double, val imagePosition: Vector2)
 
 class BlazePoseLandmarks(val graph: Graph, val landmarkCount: Int) {
-    private val inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, 256, 256, 3))
+    private val inputTensor = TFloat32.tensorOf(Shape.of(1, 256, 256, 3))
     private val inputImage = colorBuffer(256, 256, format = ColorFormat.RGB, type = ColorType.FLOAT32)
     private val inputImageFlipped = inputImage.createEquivalent()
     private val multiplyAdd = MultiplyAdd()
@@ -74,7 +74,7 @@ class BlazePoseLandmarks(val graph: Graph, val landmarkCount: Int) {
                     .fetch("Identity_2")
                     .run()
 
-            val identity2 = tensors[1].expect(TFloat32.DTYPE)
+            val identity2 = tensors[1] as TFloat32
             val id1f = identity2.toFloatArray2D()
             val landmarks = (0 until landmarkCount).map { i ->
                 val x = (id1f[0, i * 4].toDouble() / 256.0)

@@ -16,7 +16,7 @@ import org.tensorflow.types.TFloat32
 import java.net.URL
 
 class U2Net(private val graph: Graph, val modelWidth: Int, val modelHeight: Int) {
-    private val inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, modelHeight.toLong(), modelWidth.toLong(), 3))
+    private val inputTensor =  TFloat32.tensorOf(Shape.of(1, modelHeight.toLong(), modelWidth.toLong(), 3))
     private val inputImage = colorBuffer(modelWidth, modelHeight, format = ColorFormat.RGB, type = ColorType.FLOAT32)
     private val outputImage = colorBuffer(modelWidth, modelHeight, format = ColorFormat.R, type = ColorType.FLOAT32)
     private val multiplyAdd = MultiplyAdd()
@@ -80,7 +80,7 @@ class U2Net(private val graph: Graph, val modelWidth: Int, val modelHeight: Int)
             val tensors = runner.feed("inputs", inputTensor)
                     .fetch("functional_1/tf_op_layer_Sigmoid_6/Sigmoid_6")
                     .run()
-            val identityTensor = tensors[0].expect(TFloat32.DTYPE)
+            val identityTensor = tensors[0] as TFloat32
             identityTensor.copyTo(outputImage)
             identityTensor.close()
         } ?: error("no session")

@@ -16,7 +16,7 @@ import org.tensorflow.types.TFloat32
 import java.net.URL
 
 class StyleEncoder(val graph: Graph) {
-    var inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, 480, 640, 3))
+    var inputTensor = TFloat32.tensorOf(Shape.of(1, 480, 640, 3))
     var inputImage = colorBuffer(640, 480, format = ColorFormat.RGB, type = ColorType.FLOAT32)
 
     var session: Session? = null
@@ -33,7 +33,7 @@ class StyleEncoder(val graph: Graph) {
             inputImage.destroy()
             inputImage = image.createEquivalent(format = ColorFormat.RGB, type = ColorType.FLOAT32)
             inputTensor.close()
-            inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, image.height.toLong(), image.width.toLong(), 3))
+            inputTensor = TFloat32.tensorOf(Shape.of(1, image.height.toLong(), image.width.toLong(), 3))
         }
         image.copyTo(inputImage)
         inputImage.copyTo(inputTensor)
@@ -46,7 +46,7 @@ class StyleEncoder(val graph: Graph) {
                     .feed("Placeholder", inputTensor)
                     .fetch("Conv/BiasAdd")
                     .run()
-            val styleTensor = tensors[0].expect(TFloat32.DTYPE)
+            val styleTensor = tensors[0] as TFloat32
             val style = styleTensor.toFloatArray4D()[0][0][0]
             styleTensor.close()
             style

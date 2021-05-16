@@ -37,7 +37,7 @@ private fun _exp(v: Double): Double {
 }
 
 class DBFaceDetector(val graph: Graph) {
-    val inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, 480, 640, 3))
+    val inputTensor = TFloat32.tensorOf(Shape.of(1, 480, 640, 3))
     val inputImage = colorBuffer(640, 480, format = ColorFormat.RGB, type = ColorType.FLOAT32)
 
     val multiplyAdd by lazy { MultiplyAdd() }
@@ -73,9 +73,9 @@ class DBFaceDetector(val graph: Graph) {
                     .fetch("Identity_2")
                     .run()
 
-            val identity0 = tensors[0].expect(TFloat32.DTYPE) // 120, 160, 10
-            val identity1 = tensors[1].expect(TFloat32.DTYPE) // 120, 160, 4
-            val identity2 = tensors[2].expect(TFloat32.DTYPE) // 120, 160, 1
+            val identity0 = tensors[0] as TFloat32
+            val identity1 = tensors[1] as TFloat32
+            val identity2 = tensors[2] as TFloat32
 
             val boxes = identity1.toFloatArray4D()
             val scores = identity2.toFloatArray4D()

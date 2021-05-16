@@ -14,8 +14,8 @@ import java.net.URL
  * image upscaler based on super resolution neural net
  */
 class ImageUpscaler(val graph: Graph) {
-    private var inputTensorY = Tensor.of(TFloat32.DTYPE, Shape.of(1, 480, 640, 1))
-    private var inputTensorPbPr = Tensor.of(TFloat32.DTYPE, Shape.of(1, 960, 1280, 2))
+    private var inputTensorY = TFloat32.tensorOf(Shape.of(1, 480, 640, 1))
+    private var inputTensorPbPr = TFloat32.tensorOf(Shape.of(1, 960, 1280, 2))
     private var inputImageY = colorBuffer(640, 480, format = ColorFormat.R, type = ColorType.FLOAT32)
     private var inputImagePbPr = colorBuffer(640, 480, format = ColorFormat.RG, type = ColorType.FLOAT32)
     private var inputImagePbPr2 = colorBuffer(1280, 960, format = ColorFormat.RG, type = ColorType.FLOAT32)
@@ -52,9 +52,9 @@ class ImageUpscaler(val graph: Graph) {
             inputImagePbPr = colorBuffer(image.width, image.height, format = ColorFormat.RG, type = ColorType.FLOAT32)
             inputImagePbPr2 = colorBuffer(image.width * 2, image.height * 2, format = ColorFormat.RG, type = ColorType.FLOAT32)
             inputTensorY.close()
-            inputTensorY = Tensor.of(TFloat32.DTYPE, Shape.of(1, image.height.toLong(), image.width.toLong(), 1))
+            inputTensorY = TFloat32.tensorOf(Shape.of(1, image.height.toLong(), image.width.toLong(), 1))
             inputTensorPbPr.close()
-            inputTensorPbPr = Tensor.of(TFloat32.DTYPE, Shape.of(1, image.height.toLong() * 2, image.width.toLong() * 2, 2))
+            inputTensorPbPr = TFloat32.tensorOf(Shape.of(1, image.height.toLong() * 2, image.width.toLong() * 2, 2))
         }
         if (session == null) {
             start()
@@ -77,7 +77,7 @@ class ImageUpscaler(val graph: Graph) {
                     .fetch("test_sr_evaluator_i1_b0_g/target")
                     .run()
 
-            val upscaledTensor = tensors[0].expect(TFloat32.DTYPE)
+            val upscaledTensor = tensors[0] as TFloat32
             val upscaledShape = upscaledTensor.shape().asArray()
             val outputImage = result ?: colorBuffer(upscaledShape[2].toInt(), upscaledShape[1].toInt(), format = ColorFormat.RGB, type = ColorType.FLOAT32)
             upscaledTensor.copyTo(outputImage)

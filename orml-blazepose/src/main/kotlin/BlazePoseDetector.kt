@@ -124,7 +124,7 @@ class BlazePoseDetector(val graph: Graph) {
     val kPoseDetectKeyNum = 2;
 
     val anchors = generateAnchors(AnchorOptions())
-    val inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, 128, 128, 3))
+    val inputTensor = TFloat32.tensorOf(Shape.of(1, 128, 128, 3))
     val inputImage = colorBuffer(128, 128, format = ColorFormat.RGB, type = ColorType.FLOAT32)
     val inputImageFlipped = inputImage.createEquivalent()
 
@@ -165,8 +165,8 @@ class BlazePoseDetector(val graph: Graph) {
                     .fetch("Identity_1")
                     .run()
 
-            val logits0 = tensors[0].expect(TFloat32.DTYPE)
-            val logits1 = tensors[1].expect(TFloat32.DTYPE)
+            val logits0 = tensors[0] as TFloat32
+            val logits1 = tensors[1] as TFloat32
 
             val scores = logits0.toFloatArray3D()
             val boundingBoxes = logits1.toFloatArray3D()

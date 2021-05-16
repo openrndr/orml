@@ -16,7 +16,7 @@ import org.tensorflow.types.TFloat32
 import java.net.URL
 
 class ImageClassifier(val graph: Graph) {
-    private val inputTensor = Tensor.of(TFloat32.DTYPE, Shape.of(1, 224, 224, 3))
+    private val inputTensor = TFloat32.tensorOf(Shape.of(1, 224, 224, 3))
     private val inputImage = colorBuffer(224, 224, format = ColorFormat.RGB, type = ColorType.FLOAT32)
 
     var session: Session? = null
@@ -48,7 +48,7 @@ class ImageClassifier(val graph: Graph) {
                     .fetch(resultTensorName)
                     .run()
 
-            val res = tensors[0].expect(TFloat32.DTYPE)
+            val res = tensors[0] as TFloat32
             when (res.shape().numDimensions()) {
                 4 -> res.toFloatArray4D()[0][0][0]
                 3 -> res.toFloatArray3D()[0][0]
