@@ -10,16 +10,21 @@ sourceSets {
 
 dependencies {
     implementation "org.apache.commons:commons-compress:1.20"
+    implementation "org.apache.commons:commons-compress:1.20"
+
+
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.1'
+
     implementation("org.openrndr.extra:orx-tensorflow:$orxVersion")
 
-    demoRuntimeOnly("org.openrndr.extra:$orxTensorflowBackend-natives-$openrndrOS:$orxVersion")
-
-    demoImplementation("org.openrndr:openrndr-core:$openrndrVersion")
-    demoImplementation("org.openrndr:openrndr-extensions:$openrndrVersion")
-    demoImplementation("org.openrndr:openrndr-ffmpeg:$openrndrVersion")
-
-    demoRuntimeOnly("org.openrndr:openrndr-gl3:$openrndrVersion")
-    demoRuntimeOnly("org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion")
-    demoRuntimeOnly("org.openrndr:openrndr-ffmpeg-natives-$openrndrOS:$openrndrVersion")
+//    demoRuntimeOnly("org.openrndr.extra:$orxTensorflowBackend-natives-$openrndrOS:$orxVersion")
+//
+//    demoImplementation("org.openrndr:openrndr-core:$openrndrVersion")
+//    demoImplementation("org.openrndr:openrndr-extensions:$openrndrVersion")
+//    demoImplementation("org.openrndr:openrndr-ffmpeg:$openrndrVersion")
+//
+//    demoRuntimeOnly("org.openrndr:openrndr-gl3:$openrndrVersion")
+//    demoRuntimeOnly("org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion")
+//    demoRuntimeOnly("org.openrndr:openrndr-ffmpeg-natives-$openrndrOS:$openrndrVersion")
     demoImplementation(sourceSets.getByName("main").output)
 }
