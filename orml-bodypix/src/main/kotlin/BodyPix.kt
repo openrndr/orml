@@ -49,15 +49,21 @@ class BodyPix(val graph: Graph, val architecture: BodyPixArchitecture = BodyPixA
     val configBuilder = ConfigProto.newBuilder().apply {
         setGpuOptions(this.gpuOptionsBuilder.setAllowGrowth(true).build())
     }
-
     val session = Session(graph, configBuilder.build())
     val adjustFunction by lazy {
         val adjustG = Graph()
         val adjustSession = Session(adjustG)
         val tf = Ops.create(adjustG)
         val inputData = tf.placeholder(TFloat32::class.java)
-        val scaled = tf.math.mul(inputData, tf.constant(255.0f))
-        val biased = tf.math.add(scaled, tf.constant(floatArrayOf(-123.15f, -115.90f, -103.06f)))
+
+        val scaled = when(architecture) {
+            BodyPixArchitecture.RESNET -> tf.math.mul(inputData, tf.constant(255.0f))
+            BodyPixArchitecture.MOBILENET -> tf.math.mul(inputData, tf.constant(2.0f))
+        }
+        val biased = when(architecture) {
+            BodyPixArchitecture.RESNET -> tf.math.add(scaled, tf.constant(floatArrayOf(-123.15f, -115.90f, -103.06f)))
+            BodyPixArchitecture.MOBILENET -> tf.math.add(scaled, tf.constant(floatArrayOf(-1.0f, -1.0f, -1.0f)))
+        }
         val signature = Signature.builder()
             .input("inputData", inputData)
             .output("y", biased).build()
@@ -335,12 +341,16 @@ class BodyPix(val graph: Graph, val architecture: BodyPixArchitecture = BodyPixA
 
 
     companion object {
-        fun load(): BodyPix {
+        fun load(architecture: BodyPixArchitecture = BodyPixArchitecture.RESNET): BodyPix {
             val bytes =
-                fetchORMLModel("bodypix-resnet-1.0", "dc10ddb57ccf8b1604f8f34a2fed2d01520270120230e699156ba0910613ed4a")
+                when (architecture) {
+                    BodyPixArchitecture.RESNET -> fetchORMLModel("bodypix-resnet-1.0", "dc10ddb57ccf8b1604f8f34a2fed2d01520270120230e699156ba0910613ed4a")
+                    BodyPixArchitecture.MOBILENET -> fetchORMLModel("bodypix-mobilenet-1.0", "c64d6f3252217f9bd0ba790ac2a6ac8b45fc002767c97379cb2e8a3ce7317b56")
+                }
+
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
-            return BodyPix(g)
+            return BodyPix(g, architecture)
         }
     }
 }

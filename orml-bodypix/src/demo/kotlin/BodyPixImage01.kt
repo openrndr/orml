@@ -5,6 +5,7 @@ import org.openrndr.ffmpeg.PlayMode
 import org.openrndr.ffmpeg.VideoPlayerConfiguration
 import org.openrndr.ffmpeg.loadVideo
 import org.openrndr.orml.bodypix.BodyPix
+import org.openrndr.orml.bodypix.BodyPixArchitecture
 import org.openrndr.orml.bodypix.toInputResolutionHeightAndWidth
 import org.openrndr.shape.IntRectangle
 import org.openrndr.shape.Rectangle
@@ -20,7 +21,7 @@ fun main() = application {
     }
 
     program {
-        val bodyPix = BodyPix.load()
+        val bodyPix = BodyPix.load(architecture = BodyPixArchitecture.MOBILENET)
         val inputTensor = TFloat32.tensorOf(Shape.of(1, 1920/2, 1080/2, 3))
 
         val vc = VideoPlayerConfiguration().apply {
