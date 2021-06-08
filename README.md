@@ -10,14 +10,14 @@ ORML works on Linux, macOS, and Windows.
 
 ### Windows 10
 
- * Install CUDA 10.1 Update 2
- * Download cudNN 7.6.5.32, extract and place `cudnn64_7.dll` in `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin` 
+ * Install CUDA 11.0 Update 1
+ * Download cudNN 8.1.1.33,  extract and place `bin` contents in `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin` 
  
 First run with GPU may take a long while to initialize the GPU, it took 10 minutes on my laptop.
  
  ### Linux
  
- * Install CUDA 10.1 Update 2 and cudNN 7.6.5.32
+ * Install CUDA 11.0, on Ubuntu this is best done through `apt-get install cuda-11-0`
 
 ## How to use ORML?
 

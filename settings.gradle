@@ -6,10 +6,12 @@ include 'orml-biggan',
         'orml-dbface',
         'orml-facemesh',
         'orml-image-classifier',
+        'orml-mobile-stylegan',
         'orml-psenet',
         'orml-ssd',
         'orml-style-transfer',
         'orml-super-resolution',
         'orml-u2net',
         'orml-utils'
+
 

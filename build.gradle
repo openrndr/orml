@@ -14,7 +14,7 @@ plugins {
 }
 
 def openrndrUseSnapshot = false
-def orxUseSnapshot = false
+def orxUseSnapshot = true
 
 apply plugin: 'org.jetbrains.dokka'
 
@@ -26,7 +26,7 @@ project.ext {
 
     // -- this affects which backend to be used for running the demos only
     // choices are "orx-tensorflow-gpu", "orx-tensorflow-mkl", "orx-tensorflow"
-    orxTensorflowBackend = "orx-tensorflow-gpu"
+    orxTensorflowBackend = "orx-tensorflow"
 }
 
 switch (org.gradle.internal.os.OperatingSystem.current()) {
