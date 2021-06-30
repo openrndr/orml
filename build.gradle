@@ -77,12 +77,13 @@ allprojects {
     }
 
     dependencies {
+        implementation("org.bytedeco:javacpp:1.5.5")
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
         implementation 'io.github.microutils:kotlin-logging:1.7.9'
         implementation "org.openrndr:openrndr-core:$openrndrVersion"
         implementation "org.openrndr:openrndr-filter:$openrndrVersion"
         implementation "org.openrndr:openrndr-shape:$openrndrVersion"
-        implementation "org.tensorflow:tensorflow-core-api:0.3.1"
+        implementation("org.tensorflow:tensorflow-core-api:0.3.1")
         implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.5.0'
         testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spekVersion"
         testImplementation "org.amshove.kluent:kluent:1.65"
