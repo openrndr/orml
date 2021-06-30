@@ -10,18 +10,18 @@ buildscript {
     }
 }
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.5.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.20'
 }
 
 def openrndrUseSnapshot = false
-def orxUseSnapshot = true
+def orxUseSnapshot = false
 
 apply plugin: 'org.jetbrains.dokka'
 
 project.ext {
     openrndrVersion = openrndrUseSnapshot ? "0.4.0-SNAPSHOT" : "0.3.58"
     orxVersion = orxUseSnapshot ? "0.4.0-SNAPSHOT" : "0.3.58"
-    kotlinVersion = "1.5.0"
+    kotlinVersion = "1.5.20"
     spekVersion = "2.0.15"
 
     // -- this affects which backend to be used for running the demos only

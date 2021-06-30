@@ -14,24 +14,24 @@ fun main() = application {
     }
 
     program {
-        val video = loadVideoDevice()
-        video.play()
+        //val video = loadVideoDevice()
+        //video.play()
         val detector = BlazePoseDetector.load()
         val landmarks = BlazePoseLandmarks.upperBody()
-        val longestVideoAxis = max(video.width, video.height)
+        val longestVideoAxis = 640 //max(video.width, video.height)
         val videoImage = colorBuffer(longestVideoAxis, longestVideoAxis)
 
-        video.ended.listen {
-            video.restart()
-        }
+//        video.ended.listen {
+//            video.restart()
+//        }
 
-        video.newFrame.listen {
-            val xOffset = (longestVideoAxis - it.frame.width) / 2
-            val yOffset = (longestVideoAxis - it.frame.height) / 2
-            it.frame.copyTo(videoImage, targetRectangle = IntRectangle(xOffset, videoImage.height - yOffset, it.frame.width, -it.frame.height))
-        }
+//        video.newFrame.listen {
+//            val xOffset = (longestVideoAxis - it.frame.width) / 2
+//            val yOffset = (longestVideoAxis - it.frame.height) / 2
+//            //it.frame.copyTo(videoImage, targetRectangle = IntRectangle(xOffset, videoImage.height - yOffset, it.frame.width, -it.frame.height))
+//        }
         extend {
-            video.draw(drawer, blind = true)
+          //  video.draw(drawer, blind = true)
             drawer.image(videoImage)
             val regions = detector.detect(videoImage)
 
