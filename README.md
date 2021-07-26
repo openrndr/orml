@@ -1,7 +1,5 @@
 # ORML
 
- [ ![Download](https://api.bintray.com/packages/openrndr/openrndr/orml/images/download.svg) ](https://bintray.com/openrndr/openrndr/orml/_latestVersion)
-
 This is work in progress, but the idea is to create a collection of easy to use machine learning based models. The ORML library includes both models and interface code to make the use of those models simple.
 
 ORML works on Linux, macOS, and Windows.
