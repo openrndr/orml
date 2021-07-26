@@ -9,7 +9,11 @@ sourceSets {
 }
 
 dependencies {
-    implementation("org.openrndr.extra:orx-tensorflow:$orxVersion")
+    implementation("org.openrndr.extra:orx-tensorflow:$orxVersion") {
+        exclude group:'org.bytedeco', module:'javacpp'
+    }
+
+
     implementation(project(":orml-utils"))
     demoRuntimeOnly("org.openrndr.extra:$orxTensorflowBackend-natives-$openrndrOS:$orxVersion")
 
