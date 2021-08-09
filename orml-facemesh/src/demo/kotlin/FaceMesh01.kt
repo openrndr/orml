@@ -28,7 +28,15 @@ fun main() {
                 depthBuffer()
             }
             video.newFrame.listen {
-                it.frame.copyTo(squareImage, targetRectangle = IntRectangle(0, squareImage.height - (squareImage.height - 480) / 2, it.frame.width, -it.frame.height))
+                it.frame.copyTo(
+                    squareImage,
+                    targetRectangle = IntRectangle(
+                        0,
+                        squareImage.height - (squareImage.height - 480) / 2,
+                        it.frame.width,
+                        -it.frame.height
+                    )
+                )
             }
             val blazeFace = BlazeFace.load()
             val faceMesh = FaceMesh.load()
@@ -40,7 +48,13 @@ fun main() {
             extend {
                 video.draw(drawer, blind = true)
                 val rectangles = blazeFace.detectFaces(squareImage)
-                drawer.image(squareImage, squareImage.width*1.0, 0.0, -squareImage.width*1.0, squareImage.height*1.0)
+                drawer.image(
+                    squareImage,
+                    squareImage.width * 1.0,
+                    0.0,
+                    -squareImage.width * 1.0,
+                    squareImage.height * 1.0
+                )
                 for (rectangle in rectangles) {
                     val s = 640.0
                     val r = Rectangle(rectangle.area.corner * s, rectangle.area.width * s, rectangle.area.height * s)
@@ -61,11 +75,22 @@ fun main() {
                         drawer.depthTestPass = DepthTestPass.LESS_OR_EQUAL
 
                         val pose = poseSmooth
-                        val t = pose[3].xy.xy0 / (squareImage.width.toDouble()/2.0) - Vector3(1.0, 1.0, 0.0)
-                        val persp = Matrix44.translate(t * Vector3(-1.0, -1.0, 1.0))  * org.openrndr.math.transforms.perspective(90.0, 1.0, 0.1, 100.0)
+                        val t = pose[3].xy.xy0 / (squareImage.width.toDouble() / 2.0) - Vector3(1.0, 1.0, 0.0)
+                        val persp =
+                            Matrix44.translate(t * Vector3(-1.0, -1.0, 1.0)) * org.openrndr.math.transforms.perspective(
+                                90.0,
+                                1.0,
+                                0.1,
+                                100.0
+                            )
                         drawer.projection = persp
                         drawer.model = Matrix44.translate(0.0, 0.0, -20.0) *
-                         Matrix44.fromColumnVectors(Vector4.UNIT_X * 1.0, Vector4.UNIT_Y, Vector4.UNIT_Z, Vector4.UNIT_W) * Matrix44.fromColumnVectors(pose[0], pose[1], pose[2], Vector4.UNIT_W) *
+                                Matrix44.fromColumnVectors(
+                                    Vector4.UNIT_X * 1.0,
+                                    Vector4.UNIT_Y,
+                                    Vector4.UNIT_Z,
+                                    Vector4.UNIT_W
+                                ) * Matrix44.fromColumnVectors(pose[0], pose[1], pose[2], Vector4.UNIT_W) *
                                 Matrix44.rotateY(45.0)
 
                         drawer.shadeStyle = shadeStyle {
