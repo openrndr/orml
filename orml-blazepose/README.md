@@ -1,14 +1,14 @@
 # orml-blazepose
 
-BlazePose is a 3D Pose Estimation Mode that can compute (x,y,z) coordinates of 33 skeleton key points, extending the 17 keypoint topology of the original PoseNet model. These additional key points provide vital information about face, hands, and feet location with scale and rotation. Together with face and hand models they can be used to unlock various domain-specific applications like gesture control or sign language without special hardware.
+BlazePose is a 2D human pose estimation mode that can compute x,y coordinates of 33 skeleton key points, extending the 17 keypoint topology of the original PoseNet model. These additional key points provide vital information about face, hands, and feet location with scale and rotation. Together with face and hand models they can be used to unlock various domain-specific applications like gesture control or sign language without special hardware.
 
 [Blazepose article on Medium](https://medium.com/axinc-ai/blazepose-a-3d-pose-estimation-model-d8689d06b7c4)
 
-# What can I do with it
+# What can I do with it?
 
-Fast and accurate detection of body and face landmarks in a two-dimensional space in webcam imagery. 
+Fast and accurate detection of body and face landmarks in a two-dimensional space in webcam or other video imagery. 
 
-# How to use it
+# How to use it?
 
 `orml-blazepose` uses two components `BlazePoseDetector` for detecting regions containing poses and `BlazePoseLandmarks` for detecting landmarks within the pose regions.
 
@@ -33,5 +33,4 @@ for (region in regions) {
 }
 ```
 See the provided [simple demo program](src/demo/kotlin/DemoDetector02.kt) for a fully working implementation.
-
 ```
