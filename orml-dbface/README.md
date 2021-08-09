@@ -1,6 +1,37 @@
 # orml-dbface
 
-Model and interface for dbface
+DBFace is a real-time, single-stage face detector with high accuracy. orml-dbface 
+provides the model and interface for easy use.
+
+## What can I do with it?
+The model provided by orml-dbface allows for fast detection of faces in images. This enables applications
+that can detect and locate faces.
+
+For more detailed face extraction and face pose estimation look for [orml-facemesh](../orml-facemesh/README.md)
+
+## How do I use it?
+First load the dbface model.
+
+```kotlin
+val dbface = DBFaceDetector.load()
+```
+
+Then for every frame.
+```kotlin
+val rectangles = dbface.detectFaces(videoFrame)
+drawer.fill = null
+drawer.stroke = ColorRGBa.PINK
+for (r in rectangles) {
+    drawer.rectangle(r.area * Vector2(640.0, 480.0))
+    for (l in r.landmarks) {
+        drawer.circle(l.x * 640.0, l.y * 480.0, 10.0)
+    }
+}
+```
+
+For a full example consult [DemoDBFace01.kt](src/demo/kotlin/DemoDBFace01.kt)
+
+# Credits and references
 
 Based on 
  * https://github.com/terryky/tfjs_webgl_app/blob/master/dbface/tfjs_dbface.js
