@@ -28,7 +28,7 @@ class StyleEncoder(val graph: Graph) {
         session?.close()
     }
 
-    fun encodeStyle(image: ColorBuffer) : FloatArray {
+    fun encodeStyle(image: ColorBuffer): FloatArray {
         if (!inputImage.isEquivalentTo(image, ignoreFormat = true, ignoreType = true)) {
             inputImage.destroy()
             inputImage = image.createEquivalent(format = ColorFormat.RGB, type = ColorType.FLOAT32)
@@ -43,9 +43,9 @@ class StyleEncoder(val graph: Graph) {
 
         return session?.let {
             val tensors = it.runner()
-                    .feed("Placeholder", inputTensor)
-                    .fetch("Conv/BiasAdd")
-                    .run()
+                .feed("Placeholder", inputTensor)
+                .fetch("Conv/BiasAdd")
+                .run()
             val styleTensor = tensors[0] as TFloat32
             val style = styleTensor.toFloatArray4D()[0][0][0]
             styleTensor.close()

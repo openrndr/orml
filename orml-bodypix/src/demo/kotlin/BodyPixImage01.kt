@@ -1,5 +1,7 @@
 import org.openrndr.application
+import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.*
+import org.openrndr.extensions.Screenshots
 import org.openrndr.extra.tensorflow.copyTo
 import org.openrndr.ffmpeg.PlayMode
 import org.openrndr.ffmpeg.VideoPlayerConfiguration
@@ -8,8 +10,6 @@ import org.openrndr.orml.bodypix.BodyPix
 import org.openrndr.orml.bodypix.BodyPixArchitecture
 import org.openrndr.orml.bodypix.toInputResolutionHeightAndWidth
 import org.openrndr.shape.IntRectangle
-import org.openrndr.shape.Rectangle
-import org.tensorflow.TensorFlow
 import org.tensorflow.ndarray.Shape
 import org.tensorflow.types.TFloat32
 
@@ -55,6 +55,7 @@ fun main() = application {
         }
         val inputFlipped = colorBuffer(1080/2, 1920/2, type = ColorType.FLOAT32, format = ColorFormat.RGB)
 
+        extend(Screenshots())
         extend {
             drawer.isolatedWithTarget(downScaleVideo) {
                 drawer.ortho(downScaleVideo)
@@ -67,8 +68,9 @@ fun main() = application {
             val result = bodyPix.infer(inputTensor)
             result.segmentation.copyTo(segmentationImage)
             segmentationImage.copyTo(segmentationFlipped, targetRectangle = IntRectangle(0, segmentationImage.height, segmentationImage.width, -segmentationImage.height))
-            drawer.image(segmentationFlipped)
-            println(result.segmentation.shape().asArray().joinToString(", "))
+            drawer.drawStyle.colorMatrix = tint(ColorRGBa.WHITE.opacify(0.5))
+            //drawer.image(segmentationFlipped,  (width - (34 * (width/34)).toDouble())/2.0 , 0.0, (34 * (width/34)).toDouble(), height*1.0)
+            drawer.image(segmentationFlipped, 0.0, 0.0, width*1.0, height*1.0)
         }
     }
 }
