@@ -7,7 +7,7 @@ provides the model and interface for easy use.
 The model provided by orml-dbface allows for fast detection of faces in images. This enables applications
 that can detect and locate faces.
 
-For more detailed face extraction and face pose estimation look for [orml-facemesh](../orml-facemesh/README.md)
+For a more detailed face extraction and face pose estimation look for [orml-facemesh](../orml-facemesh/README.md)
 
 ## How do I use it?
 First load the dbface model.
@@ -29,7 +29,9 @@ for (r in rectangles) {
 }
 ```
 
-For a full example consult [DemoDBFace01.kt](src/demo/kotlin/DemoDBFace01.kt)
+For a full example consult [DemoDetector.kt](src/demo/kotlin/DemoDetector.kt)
+
+![detector-01.png](images/detector-01.png)
 
 # Credits and references
 
