@@ -1,8 +1,16 @@
 # orml-super-resolution
 
-Image upscaling based on super resolution neural network
+Image up-scaling based on FALSR super resolution neural network
 
-## Usage
+## What can I do with it?
+
+`orml-super-resolution` can be used to up-scale images. The FALSR network usually
+generates sharper images than bilinear upscaling.
+
+![upscaler-01.png](images/upscaler-01.png)
+
+
+## How do I use it?
 
 To load the up-scaler:
 ```kotlin
@@ -15,6 +23,8 @@ To upscale a single image:
 val image = loadImage("<some-image>")
 val upscaled = upscaler.upscale(image)
 ```
+
+[DemoUpscale.kt](src/demo/kotlin) demonstrates the full process of upscaling images.
 
 ## Credits
 
