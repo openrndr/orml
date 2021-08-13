@@ -29,12 +29,12 @@ After loading the net there are 3 ways to use it:
 
 To remove the background from an image:
 ```kotlin
-val removed = u2net.removeBackground(inputImage)
+val foreground = u2net.removeBackground(inputImage)
 ```
 
 To remove the foreground from an image (exactly the inverse of removing the background)
 ```kotlin
-val removed = u2net.removeForeground(inputImage)
+val background = u2net.removeForeground(inputImage)
 ```
 
 To get a matte image for the image
@@ -50,3 +50,4 @@ collage-like images.
 
 Based on:
  * [U^2-net](https://github.com/xuebinqin/U-2-Net) (Github)
+ * [U^2-net model conversion by PINTO0309](https://github.com/PINTO0309/PINTO_model_zoo/tree/main/061_U-2-Net) (Github)
