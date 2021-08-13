@@ -1,8 +1,23 @@
 # ORML
 
-This is work in progress, but the idea is to create a collection of easy to use machine learning based models. The ORML library includes both models and interface code to make the use of those models simple.
+ORML (OPENRNDR Machine Learning) is the machine learning part of OPENRNDR. Within OPENRNDR you can easily connect to a number of widely used machine learning models, such as Facemesh, Posenet and Style transfer networks. You can use OPENRNDR to visualise the data coming from these models in order to create compelling (interactive) experiences. The ORML library includes both models and interface code to make the use of those models simple.
 
-ORML works on Linux, macOS, and Windows.
+ORML is built on top of [orx-tensorflow](https://github.com/openrndr/orx/tree/master/orx-jvm/orx-tensorflow) which is an OPENRNDR extra that provides tools to wrap and convert between Tensorflow and OPENRNDR primitives. This extra in turn relies on [Tensorflow/Java](https://github.com/tensorflow/java) which are the official Java bindings to Tensorflow 2.x
+
+ORML and its underlying software stack is demonstrated to work on computers running Linux, macOS, and Windows.
+
+## How do I use ORML?
+The ORML repository comes with demos included, the easiest way to run the demos is to clone the repository, import the Gradle project into IntelliJ IDEA. The demos reside in the directory src/demo/kotlin of the ORML modules.
+
+To run the demos with a GPU based Tensorflow back-end make sure you have installed CUDA properly and that `orxTensorflowBackend` is set to `orx-tensorflow-gpu` in the root build.gradle.
+
+Using ORML inside stand-alone OPENRNDR projects is easiest when working with openrndr-template. This template can be found in its [Github repository](https://github.com/openrndr/openrndr-template) and provides a convenient way to start-off with a known working setup. After cloning this template repository all that needs to be done is the configuration of `ormlFeatures` in the `build.gradle.kts` file at the project root.
+
+## What can I do with it?
+
+ORML is a collection of modules (libraries) that can be used in OPENRNDR based applications. 
+
+ORML comes with the following modules: 
 
 | module                                         | description                                      |
 |------------------------------------------------|--------------------------------------------------|
@@ -15,29 +30,10 @@ ORML works on Linux, macOS, and Windows.
 | [orml-super-resolution](orml-super-resolution) | Image upscaling                                  |
 | [orml-u2net](orml-u2net)                       | Image mask extractor based on saliency           |
 
-## Using ORML with hardware acceleration
+## How can I contribute to ORML?
 
-### Windows 10
- * Install CUDA 11.0 Update 1
- * Download cudNN 8.1.1.33,  extract and place `bin` contents in `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin` 
- 
-First run with GPU may take a long while to initialize the GPU, it took 10 minutes on my laptop.
-
-
- 
-### Linux
- * Install CUDA 11.0, on Ubuntu this is best done through `apt-get install cuda-11-0`
-
-## How to use ORML?
-The ORML repository comes with demos included, the easiest way to run the demos is to clone the repository, import the Gradle project into IntelliJ IDEA. The demos are in the directory `src/demo/kotlin` of the ORML modules.
-
-To run the demos with a GPU based tensorflow back-end make sure you have installed CUDA properly and that 
-`orxTensorflowBackend` is set to `orx-tensorflow-gpu` in the root `build.gradle`.
-
-Instructions for using ORML in your own projects will follow.
-
-## How to contribute to ORML?
-
-Find smallish tensorflow frozen models (.pb files of max 15 MB), write interface code it (see the existing ORML modules for examples), send PR.
-
-We also appreciate additional demos for the existing models.
+Contributions to ORML can be made by:
+ * Improving the documentation
+ * Adding models and interface
+ * Improving or simplifying interface code
+ * Fixing bugs in existing interface code
