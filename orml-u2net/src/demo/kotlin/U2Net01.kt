@@ -1,15 +1,15 @@
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
-import org.openrndr.draw.colorBuffer
-import org.openrndr.draw.grayscale
 import org.openrndr.draw.loadImage
 import org.openrndr.extensions.Screenshots
 import org.openrndr.orml.u2net.U2Net
+import org.openrndr.shape.Rectangle
+import java.io.File
 
 fun main() {
     application {
         configure {
-            width = 1280
+            width = 640
             height = 480
         }
         program {
@@ -17,10 +17,16 @@ fun main() {
             val image = loadImage("demo-data/images/image-001.png")
             val result = u2.removeBackground(image)
 
+            extend(Screenshots())
             extend {
                 drawer.clear(ColorRGBa.PINK)
-                drawer.image(image)
-                drawer.image(result, 640.0, 0.0)
+                val x = mouse.position.x
+                val r0 = Rectangle(0.0, 0.0, x, result.height*1.0)
+                drawer.image(image, r0, r0)
+
+                val r1 = Rectangle(x, 0.0, result.width - x, result.height*1.0)
+                drawer.image(result, r1, r1)
+                drawer.lineSegment(x, 0.0, x, height * 1.0)
             }
         }
     }

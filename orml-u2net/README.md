@@ -1,8 +1,24 @@
 # orml-u2net
 
-A neural net that extracts salient parts from input images.
+A U^2-net that extracts salient parts from input images. 
 
-## Usage
+## What can I do with it?
+
+Extract salient parts from an image.
+
+To understand that a bit better consider this image:
+
+![cheetah](../demo-data/images/image-001.png)
+
+U^2-net finds the most salient parts of the input image and produces a matte image.
+
+![matte](images/matte-01.png)
+
+The matte image can be used to create a cut-out of the foreground objects. 
+
+![foreground](images/foreground-01.png)
+
+## How do I use it?
 
 To load a U2Net instance
 ```kotlin
@@ -25,3 +41,12 @@ To get a matte image for the image
 ```kotlin
 val matte = u2net.matte()
 ```
+## Example projects
+
+* [Collager project by @voorbeeld](https://twitter.com/voorbeeld/status/1323001554580971520) (Twitter) uses `orml-u2net` and `orml-style-transfer` to create
+collage-like images.
+
+## Credits and references
+
+Based on:
+ * [U^2-net](https://github.com/xuebinqin/U-2-Net) (Github)
