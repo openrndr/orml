@@ -62,8 +62,8 @@ val transformed = transformer.transformStyle(contentImage, styleVector)
 
 | Content | Style | Result |
 |---------|-------|--------|
-| ![content image](https://github.com/openrndr/orml/raw/orml-0.3/orml-style-transfer/../demo-data/images/image-001.png) | ![style image](../demo-data/images/style-001.jpg) | ![result image](https://github.com/openrndr/orml/raw/orml-0.3/orml-style-transfer/images/example-001.png)
-| ![content image](../demo-data/images/image-003.jpg) | ![style image](../demo-data/images/style-003.jpg) | ![result image](https://github.com/openrndr/orml/raw/orml-0.3/orml-style-transfer/images/example-002.png)
+| ![content image](https://github.com/openrndr/orml/raw/orml-0.3/orml-style-transfer/../demo-data/images/image-001.png) | ![style image](https://github.com/openrndr/orml/raw/orml-0.3/orml-style-transfer/../demo-data/images/style-001.jpg) | ![result image](https://github.com/openrndr/orml/raw/orml-0.3/orml-style-transfer/images/example-001.png)
+| ![content image](https://github.com/openrndr/orml/raw/orml-0.3/orml-style-transfer/../demo-data/images/image-003.jpg) | ![style image](https://github.com/openrndr/orml/raw/orml-0.3/orml-style-transfer/../demo-data/images/style-003.jpg) | ![result image](https://github.com/openrndr/orml/raw/orml-0.3/orml-style-transfer/images/example-002.png)
 
 ### Blending style vectors
 
@@ -83,7 +83,7 @@ val styleVector = (styleVector0 zip styleVector1).map {
 ```
 Then we use `styleVector` in the transformer like we'd use any style vector.
 
-![blend sequence](images/blend.gif)
+![blend sequence](https://github.com/openrndr/orml/raw/orml-0.3/orml-style-transfer/images/blend.gif)
 
 See [BlendST01.kt](https://github.com/openrndr/orml/raw/orml-0.3/orml-style-transfer/src/demo/kotlin/BlendST01.kt) for a demonstration of style blending. 
 

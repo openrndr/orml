@@ -21,7 +21,7 @@ Head tracking, face replacement, etc.
 * See [FaceTracker01.kt](https://github.com/openrndr/orml/raw/orml-0.3/orml-facemesh/src/demo/kotlin/FaceTracker01.kt)
 * See [FaceTracker02.kt](https://github.com/openrndr/orml/raw/orml-0.3/orml-facemesh/src/demo/kotlin/FaceTracker01.kt)
 
-![tunnel-01](images/tunnel-01.gif)
-![complex-01](images/complex-01.gif)
+![tunnel-01](https://github.com/openrndr/orml/raw/orml-0.3/orml-facemesh/images/tunnel-01.gif)
+![complex-01](https://github.com/openrndr/orml/raw/orml-0.3/orml-facemesh/images/complex-01.gif)
 
 ## Credits and references
