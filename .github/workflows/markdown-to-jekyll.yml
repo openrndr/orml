@@ -1,0 +1,20 @@
+name: Release to Bintray
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 16
+      - name: Run markdownToJekyllTask
+        run: ./gradlew markdownToJekyll
+      - name: Commit generated jekyll input
+        run: |
+          git config --global user.email "actions@openrndr.org"
+          git config --global user.name "OPENRNDR Actions"
+          (git add jekyll/*.markdown && git commit -m "add auto-generated jekyll input" && git push origin orml-0.3) || true
