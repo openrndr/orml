@@ -1,6 +1,6 @@
 # orml-blazepose
 
-BlazePose is a 2D human pose estimation mode that can compute x,y coordinates of 33 skeleton key points, extending the 17 keypoint topology of the original PoseNet model. These additional key points provide vital information about face, hands, and feet location with scale and rotation. Together with face and hand models they can be used to unlock various domain-specific applications like gesture control or sign language without special hardware.
+BlazePose is a 2D human pose estimation model that can compute x,y coordinates of 33 skeleton key points, extending the 17 keypoint topology of the original PoseNet model. These additional key points provide vital information about face, hands, and feet location with scale and rotation. Together with face and hand models they can be used to unlock various domain-specific applications like gesture control or sign language without special hardware.
 
 [Blazepose article on Medium](https://medium.com/axinc-ai/blazepose-a-3d-pose-estimation-model-d8689d06b7c4)
 

@@ -17,4 +17,5 @@ jobs:
         run: |
           git config --global user.email "actions@openrndr.org"
           git config --global user.name "OPENRNDR Actions"
+          git status
           (git add docs/*.markdown && git commit -m "add auto-generated jekyll input" && git push origin orml-0.3) || true
