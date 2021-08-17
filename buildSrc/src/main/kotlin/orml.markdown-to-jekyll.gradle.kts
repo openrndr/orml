@@ -104,6 +104,8 @@ abstract class MarkdownToJekyllTask constructor() : DefaultTask() {
                             text.startsWith("https://") -> text
                             text.endsWith(".kt") -> "$baseUrl$permalink/$text"
                             text.endsWith(".png") -> "$baseUrl$permalink/$text"
+                            text.endsWith(".jpg") -> "$baseUrl$permalink/$text"
+                            text.endsWith(".gif") -> "$baseUrl$permalink/$text"
                             text.endsWith("README.md") -> "${text.dropLast(9)}"
                             else -> text
                         }
