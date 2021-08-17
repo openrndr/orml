@@ -47,7 +47,7 @@ allprojects {
 
 val markdownToJekyll = tasks.register<MarkdownToJekyllTask>("markdownToJekyll") {
     inputDir.set(file("$projectDir"))
-    outputDir.set(file("jekyll"))
+    outputDir.set(file("docs"))
     ignore.set(listOf("demo-data", "orml-biggan", "orml-psenet", "orml-ssd", "orml-utils", "images"))
 }.get()
 
