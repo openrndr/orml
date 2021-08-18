@@ -2,6 +2,7 @@
 layout: page
 title: orml-image-classifier
 permalink: /orml-image-classifier/
+parent: ORML
 ---
 # Table of contents
 {: .no_toc .text-delta}

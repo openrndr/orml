@@ -2,6 +2,7 @@
 layout: page
 title: Introduction to ORML
 permalink: /orml/
+parent: ORML
 ---
 # Table of contents
 {: .no_toc .text-delta}

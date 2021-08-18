@@ -2,6 +2,7 @@
 layout: page
 title: orml-u2net
 permalink: /orml-u2net/
+parent: ORML
 ---
 # Table of contents
 {: .no_toc .text-delta}

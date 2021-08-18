@@ -2,6 +2,7 @@
 layout: page
 title: orml-style-transfer
 permalink: /orml-style-transfer/
+parent: ORML
 ---
 # Table of contents
 {: .no_toc .text-delta}

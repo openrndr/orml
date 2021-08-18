@@ -2,6 +2,8 @@
 layout: page
 title: orml-blazepose
 permalink: /orml-blazepose/
+parent: ORML
+>>>>>>> Add documentation hierarchy
 ---
 # Table of contents
 {: .no_toc .text-delta}

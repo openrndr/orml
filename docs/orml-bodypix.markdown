@@ -2,6 +2,7 @@
 layout: page
 title: orml-bodypix
 permalink: /orml-bodypix/
+parent: ORML
 ---
 # Table of contents
 {: .no_toc .text-delta}

@@ -127,6 +127,7 @@ abstract class MarkdownToJekyllTask constructor() : DefaultTask() {
 layout: page
 title: ${title ?: permalink}
 permalink: /$permalink/
+parent: ORML
 ---
 # Table of contents
 {: .no_toc .text-delta}
