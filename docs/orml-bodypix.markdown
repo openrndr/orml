@@ -50,7 +50,7 @@ val result = bodyPix.infer(inputTensor)
 
 Check [BodyPixImage01.kt](https://github.com/openrndr/orml/raw/orml-0.3/orml-bodypix/src/demo/kotlin/BodyPixImage01.kt) for a full example of using Bodypix on video input.
 
-## Examples and ideas
+## Example work
 
 {% include vimeoPlayer.html id=457786737 %}
 
