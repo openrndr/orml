@@ -52,6 +52,6 @@ Check [BodyPixImage01.kt](https://github.com/openrndr/orml/raw/orml-0.3/orml-bod
 
 ## Examples and ideas
 
-[![Re:Place](https://github.com/openrndr/orml/raw/orml-0.3/orml-bodypix/images/vimeo-01.jpg)](https://vimeo.com/457786737 "Re:Place")
+{% include vimeoPlayer.html id=457786737 %}
 
 Bodypix has been used in the Re:place installation.

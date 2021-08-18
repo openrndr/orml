@@ -69,8 +69,9 @@ abstract class MarkdownToJekyllTask constructor() : DefaultTask() {
         var title = title
         val stack = mutableListOf<String>()
 
-        var suppressOutput = false
-        var outputAccumulation = mutableListOf<String>()
+        val transformers = mutableListOf<Pair<List<String>, (List<String>)->String>>()
+        val accumulators = mutableListOf<MutableList<String>>()
+
         parsedTree.visit { enter ->
             if (enter) {
                 stack.add(this.type.name)
@@ -78,10 +79,36 @@ abstract class MarkdownToJekyllTask constructor() : DefaultTask() {
             if (enter) {
                 if (this is CompositeASTNode) {
                     if (stack.takeLast(2) == listOf("INLINE_LINK", "LINK_DESTINATION")) {
-                        suppressOutput = true
-                        outputAccumulation = mutableListOf<String>()
+                        transformers.add(stack.map { it } to { texts ->
+                            val text = texts.joinToString("")
+                            when {
+                                text.startsWith("https://") -> text
+                                text.endsWith(".kt") -> "$baseUrl$permalink/$text"
+                                text.endsWith(".png") -> "$baseUrl$permalink/$text"
+                                text.endsWith(".jpg") -> "$baseUrl$permalink/$text"
+                                text.endsWith(".gif") -> "$baseUrl$permalink/$text"
+                                text.endsWith("README.md") -> "${text.dropLast(9)}"
+                                else -> text
+                            }
+                        })
+                        accumulators.add(mutableListOf())
+                    } else if (stack.takeLast(2) == listOf("PARAGRAPH", "INLINE_LINK")) {
+                        transformers.add(stack.map { it } to { texts ->
+                            val text = texts.joinToString("")
+                            if (text.contains("https://vimeo.com")) {
+                                val r = Regex(".*https://vimeo.com/([0-9]+) .*")
+                                val m = r.find(text) ?: error("no vimeo link found")
+                                val id = m.groupValues[1]
+                                "{% include vimeoPlayer.html id=$id %}"
+
+                            } else {
+                                text
+                            }
+
+                        })
+                        accumulators.add(mutableListOf())
                     }
-                } else if (this is LeafASTNode && !suppressOutput) {
+                } else if (this is LeafASTNode && accumulators.isEmpty()) {
                     if (stack.takeLast(4) == listOf("MARKDOWN_FILE", "ATX_1", "ATX_CONTENT", "TEXT")) {
                         val text = (getTextInNode(markdown))
                         if (text.matches(Regex("^#([^#]+)"))) {
@@ -97,28 +124,26 @@ abstract class MarkdownToJekyllTask constructor() : DefaultTask() {
                     } else {
                         output.append(this.getTextInNode(markdown))
                     }
-                } else if (this is LeafASTNode && suppressOutput) {
-                    outputAccumulation.add(this.getTextInNode(markdown).toString())
+                } else if (this is LeafASTNode && accumulators.isNotEmpty()) {
+                    val accumulator = accumulators.last()
+                    accumulator.add(this.getTextInNode(markdown).toString())
                 }
             }
             if (!enter) {
                 if (this is CompositeASTNode) {
-                    var text = outputAccumulation.joinToString("")
-                    if (suppressOutput && stack.takeLast(2) == listOf("INLINE_LINK", "LINK_DESTINATION")) {
-                        val newText = when {
-                            text.startsWith("https://") -> text
-                            text.endsWith(".kt") -> "$baseUrl$permalink/$text"
-                            text.endsWith(".png") -> "$baseUrl$permalink/$text"
-                            text.endsWith(".jpg") -> "$baseUrl$permalink/$text"
-                            text.endsWith(".gif") -> "$baseUrl$permalink/$text"
-                            text.endsWith("README.md") -> "${text.dropLast(9)}"
-                            else -> text
+                    if (transformers.isNotEmpty()) {
+                        if (transformers.last().first == stack) {
+                            println("found a transformer! ${stack.joinToString(">")}")
+                            val text = transformers.last().second(accumulators.last())
+                            transformers.removeLast()
+                            accumulators.removeLast()
+                            if (accumulators.isNotEmpty()) {
+                                accumulators.last().add(text)
+                            } else {
+                                output.append(text)
+                            }
                         }
-                        output.append(newText)
-
                     }
-
-                    suppressOutput = false
                 }
                 stack.removeLast()
             }
