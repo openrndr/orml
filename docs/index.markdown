@@ -2,8 +2,10 @@
 # Feel free to add content and custom Front Matter to this file.
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
+title: ORML
 layout: home
 has_children: true
+has_toc: false
 ---
 
 # ORML
