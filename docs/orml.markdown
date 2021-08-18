@@ -1,6 +1,6 @@
 ---
 layout: page
-title: orml
+title: Introduction to ORML
 permalink: /orml/
 ---
 # Table of contents

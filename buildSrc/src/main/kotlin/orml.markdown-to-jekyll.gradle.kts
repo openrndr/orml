@@ -29,6 +29,9 @@ abstract class MarkdownToJekyllTask constructor() : DefaultTask() {
     @get:Input
     abstract val ignore: ListProperty<String>
 
+    @get:Input
+    abstract val titles: MapProperty<String, String>
+
     @TaskAction
     fun execute(inputChanges: InputChanges) {
         inputChanges.getFileChanges(inputDir).forEach { change ->
@@ -45,7 +48,8 @@ abstract class MarkdownToJekyllTask constructor() : DefaultTask() {
                 targetFile.delete()
             } else {
                 val contents = change.file.readText()
-                val processed = processMarkdownToJekyll(contents, permalink = baseName.toString())
+                val title = titles.get()[baseName]
+                val processed = processMarkdownToJekyll(contents, title = title, permalink = baseName.toString())
                 targetFile.writeText(processed)
             }
         }
