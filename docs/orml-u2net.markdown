@@ -53,7 +53,7 @@ To get a matte image for the image
 ```kotlin
 val matte = u2net.matte()
 ```
-## Example projects
+## Example work
 
 * [Collager project by @voorbeeld](https://twitter.com/voorbeeld/status/1323001554580971520) (Twitter) uses `orml-u2net` and `orml-style-transfer` to create
 collage-like images.

@@ -55,3 +55,6 @@ Check [BodyPixImage01.kt](https://github.com/openrndr/orml/raw/orml-0.3/orml-bod
 {% include vimeoPlayer.html id=457786737 %}
 
 Bodypix has been used in the Re:place installation.
+
+
+## Credits and references

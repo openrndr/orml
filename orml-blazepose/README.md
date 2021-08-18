@@ -32,7 +32,7 @@ for (region in regions) {
 ```
 See the provided [simple demo program](src/demo/kotlin/DemoDetector02.kt) for a fully working implementation.
 
-## Example projects
+## Example work
 
 `orml-blazepose` has been used in [I know](https://rndr.studio/projects/i-know) to find poses in video.
 

@@ -38,7 +38,7 @@ val upscaled = upscaler.upscale(image)
 
 [DemoUpscale.kt](src/demo/kotlin) demonstrates the full process of upscaling images.
 
-## Credits
+## Credits and references
 
 `orml-super-resolution` uses a pretrained network from https://github.com/xiaomi-automl/FALSR, to be exact it uses the FALSR-A variant. 
 

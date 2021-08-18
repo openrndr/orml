@@ -33,7 +33,7 @@ For a full example consult [DemoDetector.kt](src/demo/kotlin/DemoDetector.kt)
 
 ![detector-01.png](images/detector-01.png)
 
-# Credits and references
+## Credits and references
 
 Based on 
  * https://github.com/terryky/tfjs_webgl_app/blob/master/dbface/tfjs_dbface.js

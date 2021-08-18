@@ -30,8 +30,6 @@ val styleVector: FloatArray = encoder.encodeStyle(styleImage)
 Note that `styleVector` is a `FloatArray` which values can easily be changed. For example
 to blend between two style vectors one can
 
-
-
 ### Using StyleTransformer
 
 `StyleTransformer` comes in two tastes, an accurate one and a faster one. 
@@ -45,15 +43,13 @@ To load the faster version:
 ```kotlin
 val transformer = StyleTransformer.loadSeparable() 
 ```
-
+    
 To transfer style:
 ```kotlin
 val transformed = transformer.transformStyle(contentImage, styleVector)
 ```
 
-
-
-### Result
+#### Result
 
 | Content | Style | Result |
 |---------|-------|--------|
@@ -82,11 +78,11 @@ Then we use `styleVector` in the transformer like we'd use any style vector.
 
 See [BlendST01.kt](src/demo/kotlin/BlendST01.kt) for a demonstration of style blending. 
 
-# Example work
+## Example work
 
  * [Collager project by @voorbeeld](https://twitter.com/voorbeeld/status/1323001554580971520) (Twitter)
 
-# Credits and references
+## Credits and references
 
 Based on:
  * https://github.com/reiinakano/arbitrary-image-stylization-tfjs

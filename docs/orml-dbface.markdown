@@ -45,9 +45,7 @@ For a full example consult [DemoDetector.kt](https://github.com/openrndr/orml/ra
 
 ![detector-01.png](https://github.com/openrndr/orml/raw/orml-0.3/orml-dbface/images/detector-01.png)
 
-#  Credits and references
-{: .no_toc}
-
+## Credits and references
 
 Based on 
  * https://github.com/terryky/tfjs_webgl_app/blob/master/dbface/tfjs_dbface.js

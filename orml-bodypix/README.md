@@ -38,8 +38,11 @@ val result = bodyPix.infer(inputTensor)
 
 Check [BodyPixImage01.kt](src/demo/kotlin/BodyPixImage01.kt) for a full example of using Bodypix on video input.
 
-## Examples and ideas
+## Example work
 
 [![Re:Place](images/vimeo-01.jpg)](https://vimeo.com/457786737 "Re:Place")
 
 Bodypix has been used in the Re:place installation.
+
+
+## Credits and references
