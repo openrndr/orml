@@ -2,8 +2,14 @@
 layout: page
 title: orml-bodypix
 permalink: /orml-bodypix/
----        
+---
+# Table of contents
+{: .no_toc .text-delta}
+1. TOC
+{:toc}        
 # orml-bodypix
+{: .no_toc}
+
 
 Bodypix is a machine learning model which allows for person and body-part segmentation with TensorFlow. In computer vision, image segmentation refers to the technique of grouping pixels in an image into semantic areas typically to locate objects and boundaries. The BodyPix model is trained to do this for a person and twenty-four body parts (parts such as the left hand, front right lower leg, or back torso). In other words, BodyPix can classify the pixels of an image into two categories: pixels that represent a person and pixels that represent background. It can further classify pixels representing a person into any one of twenty-four body parts.
 

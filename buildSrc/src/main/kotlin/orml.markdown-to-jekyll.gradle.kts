@@ -89,6 +89,7 @@ abstract class MarkdownToJekyllTask constructor() : DefaultTask() {
                             }
                         }
                         output.append(" ${this.getTextInNode(markdown)}")
+                        output.append("\n{: .no_toc}\n")
                     } else {
                         output.append(this.getTextInNode(markdown))
                     }
@@ -122,7 +123,11 @@ abstract class MarkdownToJekyllTask constructor() : DefaultTask() {
 layout: page
 title: ${title ?: permalink}
 permalink: /$permalink/
----        
+---
+# Table of contents
+{: .no_toc .text-delta}
+1. TOC
+{:toc}        
 """
         return header + output.toString()
     }

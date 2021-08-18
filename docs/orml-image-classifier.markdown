@@ -2,8 +2,14 @@
 layout: page
 title: orml-image-classifier
 permalink: /orml-image-classifier/
----        
+---
+# Table of contents
+{: .no_toc .text-delta}
+1. TOC
+{:toc}        
 # orml-image-classifier
+{: .no_toc}
+
 
 `orml-image-classifier` provides image classification and embedding based on [ImageNet](https://www.image-net.org/) labelings.
 

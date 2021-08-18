@@ -2,8 +2,14 @@
 layout: page
 title: orml-super-resolution
 permalink: /orml-super-resolution/
----        
+---
+# Table of contents
+{: .no_toc .text-delta}
+1. TOC
+{:toc}        
 # orml-super-resolution
+{: .no_toc}
+
 
 Image up-scaling based on FALSR super resolution neural network
 

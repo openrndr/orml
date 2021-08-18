@@ -2,8 +2,14 @@
 layout: page
 title: orml-dbface
 permalink: /orml-dbface/
----        
+---
+# Table of contents
+{: .no_toc .text-delta}
+1. TOC
+{:toc}        
 # orml-dbface
+{: .no_toc}
+
 
 DBFace is a real-time, single-stage face detector with high accuracy. orml-dbface 
 provides the model and interface for easy use.
@@ -39,6 +45,8 @@ For a full example consult [DemoDetector.kt](https://github.com/openrndr/orml/ra
 ![detector-01.png](https://github.com/openrndr/orml/raw/orml-0.3/orml-dbface/images/detector-01.png)
 
 #  Credits and references
+{: .no_toc}
+
 
 Based on 
  * https://github.com/terryky/tfjs_webgl_app/blob/master/dbface/tfjs_dbface.js

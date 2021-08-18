@@ -2,8 +2,14 @@
 layout: page
 title: orml
 permalink: /orml/
----        
+---
+# Table of contents
+{: .no_toc .text-delta}
+1. TOC
+{:toc}        
 # ORML
+{: .no_toc}
+
 
 ORML (OPENRNDR Machine Learning) is the machine learning part of OPENRNDR. Within OPENRNDR you can easily connect to a number of widely used machine learning models, such as Facemesh, Posenet and Style transfer networks. You can use OPENRNDR to visualise the data coming from these models in order to create compelling (interactive) experiences. The ORML library includes both models and interface code to make the use of those models simple.
 

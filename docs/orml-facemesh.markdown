@@ -2,8 +2,14 @@
 layout: page
 title: orml-facemesh
 permalink: /orml-facemesh/
----        
+---
+# Table of contents
+{: .no_toc .text-delta}
+1. TOC
+{:toc}        
 # orml-facemesh
+{: .no_toc}
+
 
 Model and interface for Blazeface and Facemesh. Also includes a port of Mediapipe's 3D pose estimator.
 

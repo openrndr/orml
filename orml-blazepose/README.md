@@ -4,11 +4,11 @@ BlazePose is a 2D human pose estimation model that can compute x,y coordinates o
 
 [Blazepose article on Medium](https://medium.com/axinc-ai/blazepose-a-3d-pose-estimation-model-d8689d06b7c4)
 
-# What can I do with it?
+## What can I do with it?
 
 Fast and accurate detection of body and face landmarks in a two-dimensional space in webcam or other video imagery. 
 
-# How to use it?
+## How to use it?
 
 `orml-blazepose` uses two components `BlazePoseDetector` for detecting regions containing poses and `BlazePoseLandmarks` for detecting landmarks within the pose regions.
 

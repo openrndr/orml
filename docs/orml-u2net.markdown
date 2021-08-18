@@ -2,8 +2,14 @@
 layout: page
 title: orml-u2net
 permalink: /orml-u2net/
----        
+---
+# Table of contents
+{: .no_toc .text-delta}
+1. TOC
+{:toc}        
 # orml-u2net
+{: .no_toc}
+
 
 A U^2-net that extracts salient parts from input images. 
 

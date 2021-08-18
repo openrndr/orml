@@ -2,8 +2,14 @@
 layout: page
 title: orml-style-transfer
 permalink: /orml-style-transfer/
----        
+---
+# Table of contents
+{: .no_toc .text-delta}
+1. TOC
+{:toc}        
 # orml-style-transfer
+{: .no_toc}
+
 
 Encodes style from one image and transfers style to another image.
 
@@ -88,10 +94,14 @@ Then we use `styleVector` in the transformer like we'd use any style vector.
 See [BlendST01.kt](https://github.com/openrndr/orml/raw/orml-0.3/orml-style-transfer/src/demo/kotlin/BlendST01.kt) for a demonstration of style blending. 
 
 #  Example work
+{: .no_toc}
+
 
  * [Collager project by @voorbeeld](https://twitter.com/voorbeeld/status/1323001554580971520) (Twitter)
 
 #  Credits and references
+{: .no_toc}
+
 
 Based on:
  * https://github.com/reiinakano/arbitrary-image-stylization-tfjs
