@@ -19,4 +19,11 @@ Head tracking, face replacement, etc.
 ![tunnel-01](images/tunnel-01.gif)
 ![complex-01](images/complex-01.gif)
 
+### Example work
+
+[RNDR](https://rndr.studio) made a `orml-facemesh` based mask installation. In this installation CPU inference is used.
+
+[![Guy Fawkes demo](images/vimeo-01.png)](https://vimeo.com/591014102 "Guy Fawkes demo")
+
+
 ## Credits and references
