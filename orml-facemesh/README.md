@@ -25,5 +25,8 @@ Head tracking, face replacement, etc.
 
 [![Guy Fawkes demo](images/vimeo-01.png)](https://vimeo.com/591014102 "Guy Fawkes demo")
 
-
 ## Credits and references
+
+Based on:
+ * [Real-time Facial Surface Geometry from Monocular Video on Mobile GPUs](https://arxiv.org/abs/1907.06724) (Arxiv)
+ * [Google Mediapipe's face mesh implementation](https://google.github.io/mediapipe/solutions/face_mesh.html)
