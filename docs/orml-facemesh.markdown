@@ -31,4 +31,11 @@ Head tracking, face replacement, etc.
 ![tunnel-01](https://github.com/openrndr/orml/raw/orml-0.3/orml-facemesh/images/tunnel-01.gif)
 ![complex-01](https://github.com/openrndr/orml/raw/orml-0.3/orml-facemesh/images/complex-01.gif)
 
+### Example work
+
+[RNDR](https://rndr.studio) made a `orml-facemesh` based mask installation. In this installation CPU inference is used.
+
+{% include vimeoPlayer.html id=591014102 %}
+
+
 ## Credits and references
