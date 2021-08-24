@@ -30,6 +30,7 @@ github_username: openrndr
 # Build settings
 #theme: just-the-docs
 remote_theme: pmarsceill/just-the-docs
+color_scheme: openrndr
 plugins:
   - jekyll-feed
   - jekyll-remote-theme
