@@ -49,8 +49,6 @@ abstract class MarkdownToJekyllTask constructor() : DefaultTask() {
             } else {
                 val contents = change.file.readText()
                 val title = titles.get()[baseName]
-
-
                 val base = project.projectDir
                 val processed = processMarkdownToJekyll(contents, title = title, permalink = baseName.toString(), sourcePath = change.file.relativeTo(base).path)
                 targetFile.writeText(processed)
