@@ -1,7 +1,6 @@
 rootProject.name = 'orml'
 
-include 'orml-biggan',
-        'orml-blazepose',
+include 'orml-blazepose',
         'orml-bodypix',
         'orml-dbface',
         'orml-facemesh',
