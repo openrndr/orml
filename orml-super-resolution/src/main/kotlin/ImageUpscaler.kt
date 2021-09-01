@@ -1,5 +1,6 @@
 import org.openrndr.draw.*
 import org.openrndr.extra.tensorflow.copyTo
+import org.openrndr.orml.utils.fetchORMLModel
 import org.openrndr.resourceUrl
 import org.openrndr.shape.IntRectangle
 import org.tensorflow.Graph
@@ -100,7 +101,10 @@ class ImageUpscaler(val graph: Graph) {
          * load instance of [ImageUpscaler]
          */
         fun load(): ImageUpscaler {
-            val bytes = URL(resourceUrl("/tfmodels/FALSR-A.pb")).readBytes()
+            val bytes = fetchORMLModel(
+                "FALSR-A-1.0",
+                "639cd2ea510990fa58855a7a15bd1ea0d8756b6e6ffe7a980d0427f61f2fb4a1"
+            )
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             return ImageUpscaler(g)

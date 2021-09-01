@@ -5,6 +5,7 @@ import org.openrndr.extra.tensorflow.copyTo
 import org.openrndr.math.Vector4
 import org.openrndr.orml.utils.MaskToAlpha
 import org.openrndr.orml.utils.MultiplyAdd
+import org.openrndr.orml.utils.fetchORMLModel
 import org.openrndr.resourceUrl
 import org.openrndr.shape.IntRectangle
 import org.tensorflow.Graph
@@ -91,7 +92,10 @@ class U2Net(private val graph: Graph, val modelWidth: Int, val modelHeight: Int)
 
     companion object {
         fun load(): U2Net {
-            val bytes = URL(resourceUrl("/tfmodels/u2netp_320x320_float32.pb")).readBytes()
+            val bytes = fetchORMLModel(
+                "u2netp-320x320-float32-1.0",
+                "79e8757f7c5342c4f2b0dab4c66c4bc128b077c9541db5c6a5b363ff75c8b54a"
+            )
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             return U2Net(g, 320, 320)

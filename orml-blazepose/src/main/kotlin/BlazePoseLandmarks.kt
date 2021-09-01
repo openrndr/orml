@@ -6,6 +6,7 @@ import org.openrndr.extra.tensorflow.toFloatArray2D
 import org.openrndr.math.Vector2
 import org.openrndr.math.Vector4
 import org.openrndr.orml.utils.MultiplyAdd
+import org.openrndr.orml.utils.fetchORMLModel
 import org.openrndr.resourceUrl
 import org.openrndr.shape.IntRectangle
 import org.tensorflow.Graph
@@ -94,7 +95,10 @@ class BlazePoseLandmarks(val graph: Graph, val landmarkCount: Int) {
 
     companion object {
         fun fullBody(): BlazePoseLandmarks {
-            val bytes = URL(resourceUrl("/tfmodels/full_pose_landmark_39p_float32.pb")).readBytes()
+            val bytes = fetchORMLModel(
+                "blazepose-landmark-full-float32-1.0",
+                "c57f7b548761c7778f7d51e92f5bca48e7d947d8a554cd05ec091a0cc5066d4a"
+            )
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             g.operations().forEach {
@@ -104,7 +108,10 @@ class BlazePoseLandmarks(val graph: Graph, val landmarkCount: Int) {
         }
 
         fun upperBody(): BlazePoseLandmarks {
-            val bytes = URL(resourceUrl("/tfmodels/upperbody_landmark_float32.pb")).readBytes()
+            val bytes = fetchORMLModel(
+                "blazepose-landmark-upperbody-float32-1.0",
+                "ef036fc2b4cacac077cf7e6852071a3e7028bf4e7818a86770bb0ac98651934b"
+            )
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             g.operations().forEach {

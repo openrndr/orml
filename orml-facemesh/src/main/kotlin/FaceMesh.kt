@@ -9,6 +9,7 @@ import org.openrndr.math.Matrix44
 import org.openrndr.math.Vector2
 import org.openrndr.math.Vector3
 import org.openrndr.orml.ssd.SSDRectangle
+import org.openrndr.orml.utils.fetchORMLModel
 import org.openrndr.resourceUrl
 import org.openrndr.shape.IntRectangle
 import org.openrndr.shape.ShapeContour
@@ -139,7 +140,10 @@ class FaceMesh(val graph: Graph) {
 
     companion object {
         fun load(): FaceMesh {
-            val bytes = URL(resourceUrl("/tfmodels/facemesh.pb")).readBytes()
+            val bytes = fetchORMLModel(
+                "blazeface-1.0",
+                "8e4f04510214d3a734868ef682f75d7b3f1dc71be27ca528945ca5e555472887"
+            )
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             return FaceMesh(g)

@@ -7,7 +7,7 @@ import org.openrndr.orml.styletransfer.StyleTransformer
 fun main() = application {
     program {
         val encoder = StyleEncoder.load()
-        val transformer = StyleTransformer.load()
+        val transformer = StyleTransformer.loadSeparable()
 
         val contentImage = loadImage("demo-data/images/image-003.jpg")
         val styleImage = loadImage("demo-data/images/style-003.jpg")

@@ -11,6 +11,7 @@ import org.openrndr.math.Vector4
 import org.openrndr.orml.ssd.SSDRectangle
 import org.openrndr.orml.ssd.nonMaxSuppression
 import org.openrndr.orml.utils.MultiplyAdd
+import org.openrndr.orml.utils.fetchORMLModel
 import org.openrndr.resourceUrl
 import org.openrndr.shape.IntRectangle
 import org.openrndr.shape.Rectangle
@@ -104,7 +105,10 @@ class BlazeFace(val graph: Graph) {
 
     companion object {
         fun load(): BlazeFace {
-            val bytes = URL(resourceUrl("/tfmodels/blazeface.pb")).readBytes()
+            val bytes = fetchORMLModel(
+                "blazeface-1.0",
+                "587142c11e62d4e3947c848578788eecd4b8b157da5130d2526e9a3621c4ae70"
+            )
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             return BlazeFace(g)

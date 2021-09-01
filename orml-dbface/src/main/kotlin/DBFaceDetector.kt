@@ -12,6 +12,7 @@ import org.openrndr.math.Vector4
 import org.openrndr.orml.ssd.SSDRectangle
 import org.openrndr.orml.ssd.nonMaxSuppression
 import org.openrndr.orml.utils.MultiplyAdd
+import org.openrndr.orml.utils.fetchORMLModel
 import org.openrndr.resourceUrl
 import org.openrndr.shape.IntRectangle
 import org.openrndr.shape.Rectangle
@@ -133,7 +134,10 @@ class DBFaceDetector(val graph: Graph) {
 
     companion object {
         fun load(): DBFaceDetector {
-            val bytes = URL(resourceUrl("/tfmodels/dbface.pb")).readBytes()
+            val bytes = fetchORMLModel(
+                "dbface-1.0",
+                "f064e33a006dc95f8f451bb30ce376f1c85c36b50713665622252cb245032c99"
+            )
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             return DBFaceDetector(g)

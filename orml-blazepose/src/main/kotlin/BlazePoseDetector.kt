@@ -8,6 +8,7 @@ import org.openrndr.math.Vector2
 import org.openrndr.math.Vector4
 import org.openrndr.math.transforms.transform
 import org.openrndr.orml.utils.MultiplyAdd
+import org.openrndr.orml.utils.fetchORMLModel
 import org.openrndr.resourceUrl
 import org.openrndr.shape.IntRectangle
 import org.openrndr.shape.Rectangle
@@ -212,7 +213,12 @@ class BlazePoseDetector(val graph: Graph) {
 
     companion object {
         fun load(): BlazePoseDetector {
-            val bytes = URL(resourceUrl("/tfmodels/full_pose_detection_float32.pb")).readBytes()
+            //val bytes = URL(resourceUrl("/tfmodels/full_pose_detection_float32.pb")).readBytes()
+            val bytes = fetchORMLModel(
+                "blazepose-detection-full-float32-1.0",
+                "0c306e7db6985f4866c2466da723e5d67438410350815b2afffb071ed131ae3f"
+            )
+
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             return BlazePoseDetector(g)

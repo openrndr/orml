@@ -3,6 +3,7 @@ package org.openrndr.orml.styletransfer
 import org.openrndr.draw.*
 import org.openrndr.extra.tensorflow.copyTo
 import org.openrndr.extra.tensorflow.toFloatArray4D
+import org.openrndr.orml.utils.fetchORMLModel
 import org.openrndr.resourceUrl
 import org.tensorflow.Graph
 import org.tensorflow.Session
@@ -52,7 +53,10 @@ class StyleEncoder(val graph: Graph) {
 
     companion object {
         fun load(): StyleEncoder {
-            val bytes = URL(resourceUrl("/tfmodels/style-inception.pb")).readBytes()
+            val bytes = fetchORMLModel(
+                "style-inception-1.0",
+                "c48e7c5545f792b3637fa939e4cce320f9898c726ab5cd66a6ec42db34515cd8"
+            )
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             return StyleEncoder(g)

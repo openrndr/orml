@@ -2,6 +2,7 @@ package org.openrndr.orml.styletransfer
 
 import org.openrndr.draw.*
 import org.openrndr.extra.tensorflow.copyTo
+import org.openrndr.orml.utils.fetchORMLModel
 import org.openrndr.resourceUrl
 import org.tensorflow.Graph
 import org.tensorflow.Session
@@ -64,14 +65,20 @@ class StyleTransformer(val graph: Graph, val outputTensorName : String) {
 
     companion object {
         fun load(): StyleTransformer {
-            val bytes = URL(resourceUrl("/tfmodels/transformer.pb")).readBytes()
+            val bytes = fetchORMLModel(
+                "style-transformer-1.0",
+                "faa3e3742c7415daf83c1cca5f756ab49d862392729ac79de5aaf5492f2fee3f"
+            )
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             return StyleTransformer(g, "transformer/expand/conv3/conv/Sigmoid")
         }
 
         fun loadSeparable(): StyleTransformer {
-            val bytes = URL(resourceUrl("/tfmodels/transformer-separable.pb")).readBytes()
+            val bytes = fetchORMLModel(
+                "style-transformer-separable-1.0",
+                "0a866ca0eb9044c8aad92644df8ce036c60ff4ee7bb3bbc399cc5cb5a230f9e0"
+            )
             val g = Graph()
             g.importGraphDef(GraphDef.parseFrom(bytes))
             return StyleTransformer(g, "transformer/expand/conv3/dilate_conv/Sigmoid")
