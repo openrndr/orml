@@ -21,8 +21,8 @@ jobs:
         id: cache_openrndr
         with:
           path: |
-            ~/openrndr
-          key: ${{ runner.os }}-openrndr-${{ env.OPENRNDR_HEAD }}
+            ./openrndr
+          key: ${{ runner.os }}--openrndr-${{ env.OPENRNDR_HEAD }}
       - uses:  actions/checkout@v2.3.4
         if: steps.cache_openrndr.outputs.cache-hit != 'true'
         with:
@@ -42,8 +42,8 @@ jobs:
         id: cache_orx
         with:
           path: |
-            ~/orx
-          key: ${{ runner.os }}-orx-${{ env.ORX_HEAD }}
+            ./orx
+          key: ${{ runner.os }}--orx-${{ env.ORX_HEAD }}
       - uses:  actions/checkout@v2.3.4
         if: steps.cache_openrndr.outputs.cache-hit != 'true'
         with:
