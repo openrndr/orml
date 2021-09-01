@@ -1,9 +1,6 @@
 package org.openrndr.orml.styletransfer
 
-import org.openrndr.draw.ColorBuffer
-import org.openrndr.draw.ColorFormat
-import org.openrndr.draw.ColorType
-import org.openrndr.draw.colorBuffer
+import org.openrndr.draw.*
 import org.openrndr.extra.tensorflow.copyTo
 import org.openrndr.extra.tensorflow.toFloatArray4D
 import org.openrndr.resourceUrl

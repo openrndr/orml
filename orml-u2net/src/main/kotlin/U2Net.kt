@@ -37,7 +37,7 @@ class U2Net(private val graph: Graph, val modelWidth: Int, val modelHeight: Int)
     fun matte(input: ColorBuffer, output: ColorBuffer? = null): ColorBuffer {
         val result = output ?: input.createEquivalent()
         infer(input)
-        outputImage.copyTo(result, targetRectangle = IntRectangle(0, result.height, result.width, -result.height))
+        outputImage.copyTo(result, sourceRectangle = IntRectangle(0, 0, outputImage.width, outputImage.height), targetRectangle = IntRectangle(0, result.height, result.width, -result.height))
         return result
     }
 
@@ -47,7 +47,9 @@ class U2Net(private val graph: Graph, val modelWidth: Int, val modelHeight: Int)
     fun removeBackground(input: ColorBuffer, output: ColorBuffer? = null): ColorBuffer {
         val result = output ?: input.createEquivalent(format = ColorFormat.RGBa)
         infer(input)
-        outputImage.copyTo(result, targetRectangle = IntRectangle(0, result.height, result.width, -result.height))
+        outputImage.copyTo(result,
+            sourceRectangle = IntRectangle(0, 0, outputImage.width, outputImage.height),
+            targetRectangle = IntRectangle(0, result.height, result.width, -result.height))
         maskToAlpha.invert = false
         maskToAlpha.apply(arrayOf(input, result), result)
         return result
@@ -59,7 +61,7 @@ class U2Net(private val graph: Graph, val modelWidth: Int, val modelHeight: Int)
     fun removeForeground(input: ColorBuffer, output: ColorBuffer? = null): ColorBuffer {
         val result = output ?: input.createEquivalent(format = ColorFormat.RGBa)
         infer(input)
-        outputImage.copyTo(result, targetRectangle = IntRectangle(0, result.height, result.width, -result.height), filter = MagnifyingFilter.LINEAR)
+        outputImage.copyTo(result, sourceRectangle = IntRectangle(0, 0, outputImage.width, outputImage.height), targetRectangle = IntRectangle(0, result.height, result.width, -result.height), filter = MagnifyingFilter.LINEAR)
         maskToAlpha.invert = true
         maskToAlpha.apply(arrayOf(input, result), result)
         return result
@@ -69,7 +71,7 @@ class U2Net(private val graph: Graph, val modelWidth: Int, val modelHeight: Int)
         if (session == null) {
             start()
         }
-        image.copyTo(inputImage, targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height), filter = MagnifyingFilter.LINEAR)
+        image.copyTo(inputImage, sourceRectangle = IntRectangle(0, 0, image.width, image.height), targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height), filter = MagnifyingFilter.LINEAR)
         multiplyAdd.scale = Vector4.ONE * 2.0
         multiplyAdd.offset = Vector4.ONE * -1.0
         multiplyAdd.apply(inputImage, inputImage)

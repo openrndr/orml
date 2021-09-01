@@ -12,7 +12,8 @@ dependencies {
     implementation(project(":orml-ssd"))
     implementation(project(":orml-utils"))
     implementation("org.openrndr.extra:orx-tensorflow:$orxVersion")
-
+    implementation("org.openrndr:openrndr-draw:$openrndrVersion")
+    implementation("org.openrndr:openrndr-application:$openrndrVersion")
     demoRuntimeOnly("org.openrndr.extra:$orxTensorflowBackend-natives-$openrndrOS:$orxVersion")
 
     demoImplementation("org.openrndr:openrndr-core:$openrndrVersion")

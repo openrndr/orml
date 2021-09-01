@@ -55,7 +55,9 @@ class DBFaceDetector(val graph: Graph) {
     }
 
     fun detectFaces(squareInput: ColorBuffer, filterResults: Boolean = true): List<SSDRectangle> {
-        squareInput.copyTo(inputImage, targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.width))
+        squareInput.copyTo(target = inputImage, fromLevel = 0, toLevel = 0,
+            sourceRectangle = IntRectangle(0, 0, squareInput.width, squareInput.height),
+                targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.width))
         multiplyAdd.scale = Vector4.ONE * 2.0
         multiplyAdd.offset = Vector4.ONE * -1.0
         multiplyAdd.apply(inputImage, inputImage)

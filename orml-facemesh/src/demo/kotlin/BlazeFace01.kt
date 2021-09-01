@@ -19,7 +19,9 @@ fun main() {
             video.play()
             val squareImage = colorBuffer(640, 640)
             video.newFrame.listen {
-                it.frame.copyTo(squareImage, targetRectangle = IntRectangle(0, squareImage.height -  (squareImage.height-480)/2, it.frame.width, -it.frame.height))
+                it.frame.copyTo(squareImage,
+                    sourceRectangle = IntRectangle(0, 0, it.frame.width, it.frame.height),
+                    targetRectangle = IntRectangle(0, squareImage.height -  (squareImage.height-480)/2, it.frame.width, -it.frame.height))
             }
 
             val bf = BlazeFace.load()

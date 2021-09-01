@@ -28,7 +28,9 @@ fun main() = application {
         video.newFrame.listen {
             val xOffset = (longestVideoAxis - it.frame.width) / 2
             val yOffset = (longestVideoAxis - it.frame.height) / 2
-            it.frame.copyTo(videoImage, targetRectangle = IntRectangle(xOffset, videoImage.height - yOffset, it.frame.width, -it.frame.height))
+            it.frame.copyTo(videoImage,
+                sourceRectangle = IntRectangle(0, 0, it.frame.width, it.frame.height),
+                targetRectangle = IntRectangle(xOffset, videoImage.height - yOffset, it.frame.width, -it.frame.height))
         }
         extend {
             video.draw(drawer, blind = true)

@@ -2,7 +2,6 @@ package org.openrndr.orml.utils
 
 import org.openrndr.draw.Filter
 import org.openrndr.draw.filterShaderFromCode
-import org.openrndr.draw.glsl
 import org.openrndr.math.Vector4
 
 class MaskToAlpha : Filter(filterShaderFromCode(

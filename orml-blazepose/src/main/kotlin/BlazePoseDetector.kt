@@ -146,7 +146,10 @@ class BlazePoseDetector(val graph: Graph) {
         val targetRect = IntRectangle(0, 0, ((image.width / imageLongest.toDouble()) * 128.0).toInt(), ((image.height / imageLongest.toDouble()) * 128.0).toInt())
 
         image.copyTo(inputImage, sourceRectangle = sourceRect, targetRectangle = targetRect, filter = MagnifyingFilter.LINEAR)
-        inputImage.copyTo(inputImageFlipped, targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height))
+        inputImage.copyTo(target = inputImageFlipped, fromLevel = 0, toLevel = 0,
+            sourceRectangle = IntRectangle(0, 0, inputImage.width, inputImage.height),
+            targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height)
+        )
 
         multiplyAdd.offset = Vector4.ONE * -1.0
         multiplyAdd.scale = Vector4.ONE * 2.0

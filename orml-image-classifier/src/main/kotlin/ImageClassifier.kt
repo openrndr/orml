@@ -1042,7 +1042,7 @@ class ImageClassifier(val graph: Graph) {
     }
 
     private fun infer(image: ColorBuffer, resultTensorName: String): FloatArray {
-        image.copyTo(inputImage, targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height))
+        image.copyTo(inputImage, sourceRectangle = IntRectangle(0, 0, inputImage.width, inputImage.height),targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height))
         inputImage.copyTo(inputTensor)
         if (session == null) {
             start()

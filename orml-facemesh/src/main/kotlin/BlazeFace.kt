@@ -1,9 +1,6 @@
 package org.openrndr.orml.facemesh
 
-import org.openrndr.draw.ColorBuffer
-import org.openrndr.draw.ColorFormat
-import org.openrndr.draw.ColorType
-import org.openrndr.draw.colorBuffer
+import org.openrndr.draw.*
 import org.openrndr.extra.tensorflow.arrays.get
 import org.openrndr.extra.tensorflow.copyTo
 import org.openrndr.extra.tensorflow.summary
@@ -48,7 +45,7 @@ class BlazeFace(val graph: Graph) {
         if (session == null) {
             start()
         }
-        squareInput.copyTo(inputImage, targetRectangle = IntRectangle(0, 128, 128, -128))
+        squareInput.copyTo(inputImage, sourceRectangle = IntRectangle(0, 0, squareInput.width, squareInput.height),targetRectangle = IntRectangle(0, 128, 128, -128))
         multiplyAdd.scale = Vector4.ONE * 0.8
         multiplyAdd.offset = Vector4.ONE * 0.1
         multiplyAdd.apply(inputImage, inputImage)

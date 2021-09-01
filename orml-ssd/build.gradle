@@ -9,7 +9,8 @@ sourceSets {
 }
 
 dependencies {
-
+    implementation("org.openrndr:openrndr-application:$openrndrVersion")
+    implementation("org.openrndr:openrndr-draw:$openrndrVersion")
     demoImplementation("org.openrndr:openrndr-core:$openrndrVersion")
     demoImplementation("org.openrndr:openrndr-extensions:$openrndrVersion")
     demoImplementation("org.openrndr:openrndr-ffmpeg:$openrndrVersion")

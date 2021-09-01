@@ -30,6 +30,7 @@ fun main() {
             video.newFrame.listen {
                 it.frame.copyTo(
                     squareImage,
+                    sourceRectangle = IntRectangle(0, 0, it.frame.width, it.frame.height),
                     targetRectangle = IntRectangle(
                         0,
                         squareImage.height - (squareImage.height - 480) / 2,

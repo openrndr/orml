@@ -55,13 +55,13 @@ class BlazePoseLandmarks(val graph: Graph, val landmarkCount: Int) {
         inputImage.fill(ColorRGBa.BLACK)
 
         rotatedImage.copyTo(inputImage, sourceRectangle = sourceRect, targetRectangle = targetRect, filter = MagnifyingFilter.LINEAR)
-        inputImage.copyTo(inputImageFlipped, targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height))
+        inputImage.copyTo(inputImageFlipped, sourceRectangle = IntRectangle(0, 0, inputImage.width, inputImage.height),targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height))
 
         multiplyAdd.scale = Vector4.ONE * 2.0
         multiplyAdd.offset = Vector4.ONE * -1.0
         multiplyAdd.apply(inputImageFlipped, inputImageFlipped)
         multiplyAdd.apply(inputImage, inputImage)
-        inputImage.copyTo(inputImageFlipped, targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height))
+        inputImage.copyTo(inputImageFlipped, sourceRectangle = IntRectangle(0, 0, inputImage.width, inputImage.height), targetRectangle = IntRectangle(0, inputImage.height, inputImage.width, -inputImage.height))
         inputImageFlipped.copyTo(inputTensor)
         if (session == null) {
             start()

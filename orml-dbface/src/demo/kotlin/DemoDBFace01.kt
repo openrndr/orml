@@ -16,7 +16,9 @@ fun main() {
 
             val videoFrame = colorBuffer(video.width, video.height)
             video.newFrame.listen {
-                it.frame.copyTo(videoFrame, targetRectangle = IntRectangle(0, videoFrame.height - (videoFrame.height - 480) / 2, it.frame.width, -it.frame.height))
+                it.frame.copyTo(videoFrame,
+                    sourceRectangle = IntRectangle(0, 0, it.frame.width, it.frame.height),
+                    targetRectangle = IntRectangle(0, videoFrame.height - (videoFrame.height - 480) / 2, it.frame.width, -it.frame.height))
 
             }
 
