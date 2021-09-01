@@ -52,7 +52,7 @@ jobs:
           ref: master
       - name: Publish ORX snapshot
         run: |
-          cd ./openrndr
+          cd ./orx
           ./gradlew publishToMavenLocal -Prelease.version=0.5.1-SNAPSHOT
           cd ..
 
