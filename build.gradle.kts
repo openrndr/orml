@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version Versions.kotlin apply false
     `maven-publish`
+    java
 }
 //publishing {
 //    publications {
@@ -16,7 +17,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.netflix.nebula:nebula-release-plugin:15.3.1")
+        classpath("com.netflix.nebula:nebula-release-plugin:16.0.0")
     }
 }
 
@@ -27,11 +28,22 @@ extra["openrndrVersion"] = Versions.openrndr
 extra["orxVersion"] = Versions.orx
 
 
+
 allprojects {
+
+
+
+
     apply {
+        plugin("java")
         plugin("kotlin")
         plugin("nebula.release")
         plugin("maven-publish")
+    }
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     extensions.configure<PublishingExtension>() {
         this.publications {
@@ -48,7 +60,9 @@ allprojects {
             mavenLocal()
         }
     }
-
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
+    }
 }
 
 
