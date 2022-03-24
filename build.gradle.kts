@@ -30,10 +30,6 @@ extra["orxVersion"] = Versions.orx
 
 
 allprojects {
-
-
-
-
     apply {
         plugin("java")
         plugin("kotlin")
