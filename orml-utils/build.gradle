@@ -25,8 +25,8 @@ dependencies {
 //    demoImplementation("org.openrndr:openrndr-extensions:$openrndrVersion")
 //    demoImplementation("org.openrndr:openrndr-ffmpeg:$openrndrVersion")
 //
-//    demoRuntimeOnly("org.openrndr:openrndr-gl3:$openrndrVersion")
-//    demoRuntimeOnly("org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion")
+    demoRuntimeOnly("org.openrndr:openrndr-gl3:$openrndrVersion")
+    demoRuntimeOnly("org.openrndr:openrndr-gl3-natives-$openrndrOS:$openrndrVersion")
 //    demoRuntimeOnly("org.openrndr:openrndr-ffmpeg-natives-$openrndrOS:$openrndrVersion")
     demoImplementation(sourceSets.getByName("main").output)
 }
