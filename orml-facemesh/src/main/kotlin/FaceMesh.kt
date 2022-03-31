@@ -141,7 +141,7 @@ class FaceMesh(val graph: Graph) {
     companion object {
         fun load(): FaceMesh {
             val bytes = fetchORMLModel(
-                "blazeface-1.0",
+                "facemesh-1.0",
                 "8e4f04510214d3a734868ef682f75d7b3f1dc71be27ca528945ca5e555472887"
             )
             val g = Graph()
