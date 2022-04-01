@@ -133,8 +133,19 @@ allprojects.filter { it.name in publishableProjects }.forEach {
 }
 
 signing {
-    this.setRequired({ isReleaseVersion && gradle.taskGraph.hasTask("publish")})
+    this.setRequired({ isReleaseVersion && gradle.taskGraph.hasTask("publish") })
     sign(publishing.publications)
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            username.set(findProperty("ossrhUsername")?.toString() ?: System.getenv("OSSRH_USERNAME"))
+            password.set(findProperty("ossrhPassword")?.toString() ?: System.getenv("OSSRH_PASSWORD"))
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots"))
+        }
+    }
 }
 
 val markdownToJekyll = tasks.register<MarkdownToJekyllTask>("markdownToJekyll") {
