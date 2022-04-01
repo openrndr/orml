@@ -30,8 +30,8 @@ val isReleaseVersion = !project.version.toString().endsWith("SNAPSHOT")
 // we still have some modules that are built using Groovy script
 extra["orxTensorflowBackend"] = "orx-tensorflow"
 extra["openrndrOS"] = Configuration.openrndrOS
-extra["openrndrVersion"] = System.getenv("OPENRNDR_VERSION") ?: Versions.openrndr
-extra["orxVersion"] = System.getenv("ORX_VERSION") ?: Versions.orx
+extra["openrndrVersion"] = System.getenv("OPENRNDR_VERSION")?.replaceFirst("v", "") ?: Versions.openrndr
+extra["orxVersion"] = System.getenv("ORX_VERSION")?.replaceFirst("v", "") ?: Versions.orx
 
 val publishableProjects = listOf(
     "orml",
