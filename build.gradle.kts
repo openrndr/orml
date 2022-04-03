@@ -96,6 +96,7 @@ publishing {
 }
 
 allprojects.filter { it.name in publishableProjects }.forEach {
+    group = "org.openrndr.orml"
     val fjdj = it.tasks.create("fakeJavaDocJar", Jar::class) {
         archiveClassifier.set("javadoc")
     }
