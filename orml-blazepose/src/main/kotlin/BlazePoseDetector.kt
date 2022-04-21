@@ -131,6 +131,8 @@ class BlazePoseDetector(val graph: Graph) {
 
     val multiplyAdd = MultiplyAdd()
 
+    var threshold = 0.3
+
     var session: Session? = null
     fun start() {
         session = Session(graph)
@@ -175,7 +177,7 @@ class BlazePoseDetector(val graph: Graph) {
             val scores = logits0.toFloatArray3D()
             val boundingBoxes = logits1.toFloatArray3D()
 
-            val scoreThreshold = 0.3
+            val scoreThreshold = threshold
 
             val regions = (anchors.indices).mapNotNull { i ->
                 val anchor = anchors[i]
